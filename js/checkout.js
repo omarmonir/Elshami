@@ -27,27 +27,23 @@ document.getElementById('confirm-order').addEventListener('click', () => {
         return;
     }
     
-    // إنشاء كائن للطلب الحالي
     const order = {
-        date: new Date().toISOString(), // تاريخ الطلب
-        items: [...cart], // نسخ محتويات السلة
+        date: new Date().toISOString(), 
+        items: [...cart],
         subtotal: subtotal,
         total: subtotal,
         shippingInfo: {
-            // يمكنك هنا إضافة معلومات الشحن من الفورم
+          
             name: form.elements['firstName'].value,
             address: form.elements['address'].value,
-            // أضف باقي الحقول حسب الحاجة
+            
         }
     };
     
-    // جلب الطلبات القديمة من localStorage أو إنشاء مصفوفة جديدة إذا لم توجد
+   
     const orders = JSON.parse(localStorage.getItem('orders')) || [];
-    
-    // إضافة الطلب الجديد إلى مصفوفة الطلبات
     orders.push(order);
     
-    // حفظ مصفوفة الطلبات في localStorage
     localStorage.setItem('orders', JSON.stringify(orders));
     
     alert('Order placed successfully! Thank you for your purchase.');
