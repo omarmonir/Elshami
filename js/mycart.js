@@ -71,7 +71,7 @@ renderCart();
 const checkoutButton = document.querySelector('.btn-checkout');
 
 checkoutButton.addEventListener('click', proceedToCheckout);
-
+ 
 function proceedToCheckout() {
     if (cart.length === 0) {
         alert('Your cart is empty. Please add items before checkout.');
