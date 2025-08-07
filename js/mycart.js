@@ -30,8 +30,7 @@ function renderCart() {
         row.innerHTML = `
             <td>
                 <img src="${item.image}" 
-                     alt="${item.name}" 
-                     onerror="this.src='https://via.placeholder.com/60x60?text=No+Image'" 
+                     alt="${item.name}"     
                      style="width: 60px; height: 60px; object-fit: cover;" />
             </td>
             <td>${item.name}</td>
