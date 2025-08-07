@@ -40,43 +40,6 @@ body {
 
 
 
-/* .text-container {
-    max-width: 800px;
-    padding: 40px;
-    background-color: white;
-    justify-content: flex-start;
-    text-align: end;
-}
-
-.lorem-text {
-    font-size: 18px;
-    line-height: 1.6;
-    color: #000000;
-    margin-bottom: 30px;
-    text-align: left;
-}
-
-.order-button {
-    display: block;
-    margin: 0 auto;
-    padding: 12px 30px;
-    background-color: #003366;
-    color: white;
-    border: none;
-    border-radius: 30px;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.order-button:hover {
-    background-color: #0a74dd;
-} */
-
-
-
-
 * {
     box-sizing: border-box;
 }
