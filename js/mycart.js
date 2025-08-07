@@ -11,7 +11,7 @@ let cart = [
         name: "Chicken skewers", 
         price: 150, 
         quantity: 2, 
-        image: "./Images/image_itemsList_4.PNG" 
+        image: "./Images/image_itemsList_4.png" 
     }
 ];
 
