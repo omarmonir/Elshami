@@ -52,35 +52,6 @@ h2{
     padding: 20px;
 }
 
-/* .search{
-    border: 20px;
-    border-radius: 5px;
-    border-style:inherit;
-    display: flex;
-    margin: 10px;
-    padding: 10px;
-}
-
-
-.btn{
-    background-color: #003366;
-    font-style: italic;
-    color: aliceblue;
-    border: none;
-    border-radius: 10px;
-    padding: 0.5rem 1.5rem;
-    transition: background-color 0.3s;
-} */
-
-
-/* .search input{
-    border: 50px;
-    border-radius: 5px;
-    box-sizing: border-box;
-    border-color: rgb(8, 8, 8);
-
-} */
-
 
 .end h1{
     text-align: center;
@@ -124,7 +95,7 @@ h2{
 
 
 
- .collection {
+.collection {
             text-align: center;
             max-width: 600px;
             width: 100%;
@@ -132,6 +103,7 @@ h2{
             background: white;
             border-radius: 12px;
             margin: 20px;
+            padding-left: -20px;
         }
 
 .main-heading {
