@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="./css/cart.css">
+    <title>My Cart</title>
+</head>
+<body>
+   <header>
+
+
+  <div class="nav py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
+
+    <div class="d-flex align-items-center">
+      <img src="../images/logo.png" alt="Logo" height="50">
+    </div>
+
+    <!-- <!-menue --> 
+    <nav class="nav mx-auto">
+      <a class="nav-link fw-bold " href="#">HOME</a>
+      <a class="nav-link fw-bold " href="#">ABOUT</a>
+      <a class="nav-link fw-bold " href="#">ITEMS</a>
+      <a class="nav-link fw-bold " href="#">PAGES</a>
+      <a class="nav-link fw-bold " href="#">CONTACT</a>
+    </nav>
+
+    <!-- -->
+    <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2">
+        <div><img src="../images/cart.png" alt="cart"></div>
+        <div class="small text-dark , font-weight: bold">
+        <div class="num+p             ">
+           <div>Delivery Order</div>
+          <div>‪+880 1630 225 015‬</div>
+          </div>
+      </div>
+ 
+        <img src="../images/food 1.png" alt="bike" height="24">
+      </div>
+      <button class="btn btn-danger rounded-pill px-3">LOGIN</button>
+    </div>
+  </div>
+</header>
+
+<div class="container py-5">
+  
+
+  <!-- Banner Image -->
+ <div class="position-relative text-center mb-4">
+  <img src="images/Rectangle 58.png" class="img-fluid rounded w-100" alt="Cart Banner" />
+  <h2 class="banner-title">My Cart</h2>
+</div>
+
+  <!-- Cart Table -->
+  <div class="table-responsive">
+    <table class="table table-bordered table-sm text-center align-middle">
+      <thead class="tcart text-white">
+        <tr>
+          <th>Product</th>
+          <th>Product Name</th>
+          <th>Unit Price</th>
+          <th>Quantity</th>
+          <th>Total</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody id="cart-items">
+        <!-- Items inserted by JS -->
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Cart Summary Only -->
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <div class="p-4 bg-light rounded">
+        <h5 class="mb-3">CART SUBTOTAL</h5>
+        <p>Order Subtotal: $<span id="order-subtotal">0</span></p>
+        <p>Shipping: Free Shipping</p>
+        <h5><strong>Total: $<span id="total-amount">0</span></strong></h5>
+        <button class="btn w-100 mt-3 btn-checkout">Proceed To Checkout</button>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="./js/mycart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>
