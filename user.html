@@ -1,117 +1,180 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-  
-    <!-- Bootstrap CSS -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Edit Profile</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-<link rel="stylesheet" href="../css/home.css">
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="./css/user.css">
 </head>
 
-<body style="font-family: 'Roboto', sans-serif; background-color: #fff3ed;">
-  >
-<!-- HEADER -->
+<body>
 
-<header>
+  <!-- HEADER -->
+  <header>
+    <div class="nav py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
+      <!-- Logo -->
+      <div class="d-flex align-items-center">
+        <img src="./image/logo.png" alt="Logo" height="50">
+      </div>
 
+      <!-- Navigation Links -->
+      <nav class="nav mx-auto">
+        <a class="nav-link fw-bold custom-link" href="#">HOME</a>
+        <a class="nav-link fw-bold custom-link" href="#">ABOUT</a>
+        <a class="nav-link fw-bold custom-link" href="#">ITEMS</a>
+        <a class="nav-link fw-bold custom-link" href="#">PAGES</a>
+        <a class="nav-link fw-bold custom-link" href="#">CONTACT</a>
+      </nav>
+      
+      <!-- Right Side: Delivery + User Image -->
+      <div class="d-flex align-items-center gap-3">
+        <div class="d-flex align-items-center gap-2">
+          <div><img src="./image/cart.png" alt="cart"></div>
+          <div class="small text-light">
+            <div>Delivery Order</div>
+            <div>+880 1630 225 015</div>
+          </div>
+          <img src="./image/food 1.png" alt="bike" height="24">
+        </div>
 
-  <div class="nav py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
+        <!-- User Profile Image in Header -->
+        <div class="header-user-pic">
+          <img id="headerProfileImg" src="./image/userpro.png" alt="User Profile">
+        </div>
+      </div>
+    </div>
+  </header>
 
-    <div class="d-flex align-items-center">
-      <img src="../images/logo.png" alt="Logo" height="50">
+  <!-- MAIN CONTENT -->
+  <main class="container d-flex my-5 flex-grow-1">
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <div class="profile-pic">
+        <img id="sidebarProfileImg" src="./image/userpro.png" alt="Profile" />
+        <h3 id="sidebarName">David Matin</h3>
+        <p id="sidebarTitle">Web Developer</p>
+      </div>
+
+      <nav class="menu">
+        <a href="profile.html" class="menu-link active">Profile</a>
+        <a href="cart.html" class="menu-link">My Cart</a>
+        <a href="shop.html" class="menu-link">Shop</a>
+        <a href="logout.html" class="menu-link">Logout</a>
+      </nav>
     </div>
 
+    <!-- Form Section -->
+    <div class="form-section">
+      <form id="editProfileForm" novalidate>
+        <h2>BASIC INFORMATION</h2>
+        <div class="basic-grid">
+          <div class="form-row full">
+            <label for="fullName">User Full Name*</label>
+            <input type="text" id="fullName" required>
+            <div class="error-message"></div>
+          </div>
+          <div class="form-row">
+            <label for="title">Professional Title*</label>
+            <input type="text" id="title" required>
+            <div class="error-message"></div>
+          </div>
+          <div class="form-row">
+            <label for="age">Age*</label>
+            <input type="number" id="age" required>
+            <div class="error-message"></div>
+          </div>
+          <div class="form-row full">
+            <label for="about">About</label>
+            <textarea id="about"></textarea>
+          </div>
+        </div>
 
-    <nav class="nav mx-auto">
-      <a class="nav-link fw-bold custom-link" href="#">HOME</a>
-      <a class="nav-link fw-bold custom-link" href="#">ABOUT</a>
-      <a class="nav-link fw-bold custom-link" href="#">ITEMS</a>
-      <a class="nav-link fw-bold custom-link" href="#">PAGES</a>
-      <a class="nav-link fw-bold custom-link" href="#">CONTACT</a>
-    </nav>
+        <h2>CONTACT INFORMATION</h2>
+        <div class="contact-grid">
+          <div class="form-row">
+            <label for="phone">Contact Number</label>
+            <input type="text" id="phone">
+          </div>
+          <div class="form-row">
+            <label for="email">Email Address</label>
+            <input type="email" id="email">
+          </div>
+          <div class="form-row">
+            <label for="country">Country</label>
+            <input type="text" id="country">
+          </div>
+          <div class="form-row">
+            <label for="postcode">Postcode</label>
+            <input type="text" id="postcode">
+          </div>
+          <div class="form-row">
+            <label for="city">City</label>
+            <input type="text" id="city">
+          </div>
+          <div class="form-row">
+            <label for="address">Full Address</label>
+            <input type="text" id="address">
+          </div>
+        </div>
+        <button type="submit" id="saveBtn">Save Setting</button>
+      </form>
+    </div>
+  </main>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-    <!-- Bootstrap Footer -->
-<footer class="footer text-white">
-    <div class="top-footer py-4" style="background-color: #003366;">
+  <!-- FOOTER -->
+  <footer class="footer text-white mt-auto">
+    <div class="top-footer py-3">
       <div class="container">
-        <div class="row text-center">
-          <!-- col 1-->
+        <div class="row text-center text-md-start justify-content-between">
           <div class="col-md-4 mb-3">
-            <h2>Robert Food</h2>
-            <p>1986 Hilltop DriveBorger, TX 79007</p>
+            <h3>Robert Food</h3>
+            <p>1986 Hilltop Drive, Borger, TX 79007</p>
             <p>
-              <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM   &emsp;&emsp; 
-              <i class="bi bi-telephone"></i> +880 1630-225015
+              <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM   
+              <i class="bi bi-telephone ms-2"></i> +880 1630-225015
             </p>
-            <a href="#" class="text-info ">Click to View Google Map</a>
+            <a href="#">Click to View Google Map</a>
           </div>
-          <!--  col 2-->
           <div class="col-md-4 mb-3">
-            <h2>Mark A. Reed Food</h2>
-            <p>4877 Rose AvenueNew Orleans, LA 70112</p>
+            <h3>Mark A. Reed Food</h3>
+            <p>4877 Rose Avenue, New Orleans, LA 70112</p>
             <p>
-              <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM &emsp;&emsp;
-                                <!-- علشان اعمل المسافه بينهم -->
-              <i class="bi bi-telephone"></i> +880 1630-225015
+              <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM
+              <i class="bi bi-telephone ms-2"></i> +880 1630-225015
             </p>
-            <a href="#" class="text-info ">Click to View Google Map</a>
+            <a href="#">Click to View Google Map</a>
           </div>
-          <!--   col 3-->
           <div class="col-md-4 mb-3">
-            <h2>Karie K. Hill Food</h2>
-            <p>1509 Peaceful LaneCleveland, OH 44115</p>
+            <h3>Karie K. Hill Food</h3>
+            <p>1509 Peaceful Lane, Cleveland, OH 44115</p>
             <p>
-              <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM&emsp;&emsp;
-              <i class="bi bi-telephone"></i> +880 1630-225015
+              <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM
+              <i class="bi bi-telephone ms-2"></i> +880 1630-225015
             </p>
-            <a href="#" class="text-info ">Click to View Google Map</a>
+            <a href="#">Click to View Google Map</a>
           </div>
         </div>
       </div>
     </div>
-  
-    <!--  copyright-->
-    <div class="bottom-footer py-3 text-center" style="background-color: gray;">
-      <p class="mb-0">Copyright © 2022 | Shaheen Uddin Ahmad</p>
+    <div class="bottom-footer text-center py-2">
+      <p class="mb-0 small">Copyright © 2022 | Shaheen Uddin Ahmad</p>
     </div>
   </footer>
-  
 
-
+  <!-- Scripts -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-<script src="script.js"></script>
-    
+  <script src="./js/user.js"></script>
 </body>
 </html>
