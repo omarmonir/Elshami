@@ -41,9 +41,17 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     );
 
     if (matchedUser) {
+      // ✅ تخزين اسم المستخدم الحالي في LocalStorage
+      localStorage.setItem("currentUser", matchedUser.username);
+
       alert(`Login successful! ✅\nWelcome ${matchedUser.username} (${matchedUser.role})`);
-      // Example redirect:
-      // if (matchedUser.role === "admin") { window.location.href = "admin.html"; }
+
+      // مثال للتحويل بعد تسجيل الدخول
+      // if (matchedUser.role === "admin") {
+      //   window.location.href = "admin.html";
+      // } else {
+      //   window.location.href = "home.html";
+      // }
     } else {
       alert("❌ Invalid username or password");
     }
@@ -115,7 +123,16 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
       email: email,
       phone: phone,
       gender: gender.value,
-      role: "user" // ✅ Assign role here
+      role: "user", // ✅ Assign role here
+      fullName: "", // هيتملوا من صفحة البروفايل
+      title: "",
+      age: "",
+      about: "",
+      country: "",
+      postcode: "",
+      city: "",
+      address: "",
+      image: "" // صورة البروفايل
     };
 
     let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
