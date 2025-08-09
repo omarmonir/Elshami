@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+  
+    <!-- Bootstrap CSS -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<link rel="stylesheet" href="./css/style.css">
+</head>
+
+<body style="font-family: 'Roboto', sans-serif; background-color: #fff3ed;">
+
+<!-- HEADER -->
+
+<header>
+
+
+  <div class="nav py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
+
+    <div class="d-flex align-items-center">
+      <img src="./Images/logo.png" alt="Logo" height="50">
+    </div>
+
+
+    <nav class="nav mx-auto">
+      <a class="nav-link fw-bold custom-link" href="#">HOME</a>
+      <a class="nav-link fw-bold custom-link" href="#">ABOUT</a>
+      <a class="nav-link fw-bold custom-link" href="#">ITEMS</a>
+      <a class="nav-link fw-bold custom-link" href="#">PAGES</a>
+      <a class="nav-link fw-bold custom-link" href="#">CONTACT</a>
+    </nav>
+    
+    <!-- -->
+    <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2">
+        <div><img src="./Images/cart.png" alt="cart"></div>
+        <div class="small text-light , font-weight: bold">
+        <div class="num+p  ">
+           <div>Delivery Order</div>
+          <div>+880 1630 225 015</div>
+          </div>
+      </div>
+ 
+        <img src="./Images/food 1.png" alt="bike" height="24">
+      </div>
+      <button class="btn btn rounded-pill px-3">LOGIN</button>
+    </div>
+  </div>
+</header>
+
+
+
+
+<!-- Hero Section -->
+<section class="hero-section py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-7 mx-auto text-center">
+        <p class="text3 fw-semibold small mb-1">Best In Town</p>
+        <h1 class="hero-title">
+          ENJOY OUR CHICKEN <span class="text"> <br> BURGER</span> FAST FOOD
+        </h1>
+        <div  id="order"  class="d-flex align-items-center gap-3 mt-3" >
+          <button id="btn2" class="btn  bt text-center px-4 py-2 fw-bold">Order Now</button>
+          <span class="price-text  mx-auto text-center fw-semibold fs-5">Price : $10.50</span>
+        </div>
+        <div class="social-icons mt-4 text-md-start">
+          <i class="bi bi-twitter me-3"></i>
+          <i class="bi bi-facebook me-3"></i>
+          <i class="bi bi-instagram me-3"></i>
+          <i class="bi bi-linkedin"></i>
+        </div>          
+      </div>
+     <div class="col-md-5 text-center mt-4 mt-md-0 position-relative">
+        <div class="hero-slider">
+            <img src="./Images/image1.png" alt="Chicken" class="img-fluid hero-img active">
+            <img src="./Images/image_Dishes_3.png" alt="Burger" class="img-fluid hero-img">
+            <img src="./Images/image_Dishes_4.png" alt="Pizza" class="img-fluid hero-img">
+        </div>
+        
+        <div class="slider-dots mt-3">
+            <span class="dot active" data-index="0"></span>
+            <span class="dot" data-index="1"></span>
+            <span class="dot" data-index="2"></span>
+        </div>
+    </div>
+
+    </div>
+  </div>
+
+</section>
+
+
+
+
+<section class="food-items py-3">
+  <div class="container">
+    <div class="text-center mb-5">
+      <h5 class="section-title1 text-dark">Food Items</h5>
+      <h2 class="section-title2 mb-5">Popular Dishes</h2>
+  </div>
+
+    <div class="row g-4 justify-content-center">
+      <!-- Card 1 -->
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <div class="food-card text-center">
+          <img src="./Images/image_Dishes_1.png" class="img-fluid mb-2" alt="Food 1">
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <div class="food-card text-center">
+          <img src="./Images/image_Dishes_2.png" class="img-fluid mb-2" alt="Food 2">
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <div class="food-card text-center">
+          <img src="./Images/image_Dishes_3.png" class="img-fluid mb-2" alt="Food 3">
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <div class="food-card text-center">
+          <img src="./Images/image_Dishes_4.png" class="img-fluid mb-2" alt="Food 4">
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="col-lg-2 col-md-3 col-sm-4 col-6">
+        <div class="food-card text-center">
+          <img src="./Images/image_Dishes_5.png" class="img-fluid mb-2" alt="Food 5">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+
+  <!-- ................... -->
+
+
+
+  <section class="rich-healthy pt-0 pb-5 mt-n5">
+    <div class="container">
+      <div class="row align-items-center position-relative">
+        <div class="col-md-3 text-center">
+          <img src="./Images/image_richHealthy_1.png" alt="Chef cooking" class="img-fluid rounded">
+        </div>
+  
+        <div class="col-md-6 mx-auto text-center position-relative" style="margin-top: -100px; z-index: 2;">
+          <p class="small text-uppercase text-secondary mb-1">Rich & Healthy</p>
+          <h3 id="pragraph" class="fw-bold mb-7">
+            Highest quality artisan grains,<br>
+            proteins & seasonal ingredients
+          </h3>
+          <p class="mb-3">
+            Righteous indignation and dislike men who are so beguiled and demoralized
+            by the charms of pleasure of the moment, so blinded by desires, that they
+            cannot foresee.  
+          </p>
+          <ul class="list-unstyled mb-3 text-center">
+            <li>⭐ Simple and easy to distinguish</li>
+            <li>⭐ Pleasure of the moment / blinded desire</li>
+            <li>⭐ Able to do what we like best</li>
+          </ul>
+          <button class="btn btn-danger px-4 py-2 rounded-pill">Read More</button>
+        </div>
+  
+        <div class="col-md-3 text-center">
+          <img src="./Images/image_richHealthy_2.png" alt="Healthy salad " class="img-fluid rounded position-relative"  style="z-index: 1; width: 359px; height: 377px;">
+        </div>
+      </div>
+    </div>
+  </section>
+  
+
+  <section class="bigg-offer py-5 text-center">
+    <div class="container">
+
+        <h2 id="h2" class="fw-bold mb-4">Bigg Offer</h2>
+
+      <p class="lead fw-medium text-muted mb-2">
+        For in this week, take your food, buy your best one.
+      </p>
+  
+  
+      <div class="row justify-content-center g-4">
+        <div class="col-6 col-md-4">
+          <img src="./Images/image_bigOffer_1.png" alt="Offer 1" class="img-fluid rounded shadow-sm offer-img">
+        </div>
+        <div class="col-6 col-md-4">
+          <img src="./Images/image_bigOffer_2.png" alt="Offer 2" class="img-fluid rounded shadow-sm offer-img">
+        </div>
+        <div class="col-6 col-md-4">
+          <img src="./Images/image_bigOffer_3.png" alt="Offer 3" class="img-fluid rounded shadow-sm offer-img">
+        </div>
+      </div>
+  
+    </div>
+  </section>
+
+<!--  ................... -->
+
+
+
+  <section class="our-restaurant py-5">
+    <div class="container1">
+      <section class="our-restaurant py-5">
+        <div class="container">
+          <div class="row align-items-start">
+            <div class="col-md-6">
+              <div class="row g-3">
+                <div class="col-6">
+                  <img src="./Images/image_ourResturant_1.png" alt="Chef cooking" class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="col-6">
+                  <img src="./Images/image_ourResturant_2.png" alt="Team cooking" class="img-fluid rounded shadow-sm">
+                </div>
+                <div class="col-12">
+                  <img src="./Images/image_ourResturant_3.png" alt="Couple dining" class="img-fluid rounded shadow-sm">
+                </div>
+              </div>
+            </div> 
+      
+            <div class="col-md-6">
+              <p class="section-subtitle">OUR RESTAURANT</p>
+              <h2 class="section-title">
+                For every special occasion <br>
+                there’s heritaste
+              </h2>
+              <p class="section-description">
+                Indignation and dislike men who are so beguiled and demoralized by the charms of pleasure of the moment. Success Story.
+              </p>
+      
+              <!-- Success Story -->
+              <div class="feature-box d-flex align-items-start mb-4">
+                <div class="icon-circle me-3">
+                  <img src="./Images/growth 1.png" alt="Success Icon">
+                </div>
+                <div>
+                  <h5 id="h5">Success Story</h5>
+                  <p>Certain circumstances and owing to the claims of duty obligations of business it will frequently.</p>
+                  <a href="#" class="btn btn-read">Read More</a>
+                </div>
+              </div>
+      
+              <!-- Passionate Chefs -->
+              <div class="feature-box d-flex align-items-start">
+                <div class="icon-circle me-3">
+                  <img src="./Images/cooking 1.png" alt="Chef Icon">
+                </div>
+                <div>
+                  <h5 id="h5">Passionate Chefs</h5>
+                  <p>Duty or the obligations of business it frequently occur pleasures have to be repudiated.</p>
+                  <a href="#" class="btn btn-read">Read More</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      
+      
+
+
+<!-- Delivery Section -->
+<section class="delivery-section py-5">
+  <div class="container">
+    <div class="row align-items-center">
+      <!-- Left Column - Text Content -->
+      <div class="col-md-6">
+        <h3 class="delivery-subtitle">Delivery</h3>
+        <h2 class="delivery-title">A Moments Of<br>Delivered On Right Time & Place</h2>
+        <p class="delivery-description">
+          Food Khan is a restaurant, bar and coffee roastery located on a busy corner site in Farringdehra Eomorh Market. 
+          With glazed frontage on two sides of the building, overlooking the market and a bustling London inteton.
+        </p>
+        
+        <div class="delivery-info">
+          <div class="delivery-contact">
+            <div class="delivery-phone d-flex align-items-center">
+              <img src="./Images/food 1.png" alt="Phone" class="phone-icon">
+              <div class="phone-text ms-3">
+                <div class="d-flex align-items-baseline">
+                  <span class="delivery-label me-2">Delivery Order</span>
+                  <span class="phone-number">+880 1630 255 015</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <button class="delivery-btn ms-4">Order Now</button>
+        </div>
+      </div>
+      
+      <!-- Right Column - Image -->
+      <div class="col-md-6">
+        <img src="./Images/image_delivery.png" alt="Delivery" class="img-fluid delivery-image">
+      </div>
+    </div>
+  </div>
+</section>   
+
+
+
+
+
+
+
+
+<!-- Why We Are the Best Section -->
+<section class="features-section py-5">
+  <div class="container">
+    <h2 class="section-heading text-center mb-5">Why We are the best</h2>
+    
+    <div class="row">
+      <!-- Feature 1 -->
+      <div class="col-md-4 feature-box">
+        <div class="feature-number">1</div>
+        <h3 class="feature-title">Passionate Chefs</h3>
+        <p class="feature-text">
+          Beguiled and demoralized by all get charms pleasure the moments ever so blinded by desire.
+        </p>
+        <a href="#" class="feature-link">Read More</a>
+      </div>
+      
+      <!-- Feature 2 -->
+      <div class="col-md-4 feature-box">
+        <div class="feature-number">2</div>
+        <h3 class="feature-title">100 % Fresh Foods</h3>
+        <p class="feature-text">
+          Beguiled and demoralized by all get charms pleasure the moments ever so blinded by desire.
+        </p>
+        <a href="#" class="feature-link">Read More</a>
+      </div>
+      
+      <!-- Feature 3 -->
+      <div class="col-md-4 feature-box">
+        <div class="feature-number">3</div>
+        <h3 class="feature-title">Memorable Ambience</h3>
+        <p class="feature-text">
+          Beguiled and demoralized by all get charms pleasure the moments ever so blinded by desire.
+        </p>
+        <a href="#" class="feature-link">Read More</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+        
+ 
+
+<!-- Footer -->
+<footer class="footer text-white w-100">
+
+  <div class="top-footer py-4" style="background-color: #003366; width: 100%;">
+    <div class="container">
+      <div class="row text-center">
+        <!-- col 1-->
+        <div class="col-md-4 mb-3">
+          <h2>Robert Food</h2>
+          <p>1986 Hilltop DriveBorger, TX 79007</p>
+          <p>
+            <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM &emsp;&emsp;
+            <i class="bi bi-telephone"></i> +880 1630-225015
+          </p>
+          <a href="#" class="text-info">Click to View Google Map</a>
+        </div>
+        <!-- col 2-->
+        <div class="col-md-4 mb-3">
+          <h2>Mark A. Reed Food</h2>
+          <p>4877 Rose AvenueNew Orleans, LA 70112</p>
+          <p>
+            <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM &emsp;&emsp;
+            <i class="bi bi-telephone"></i> +880 1630-225015
+          </p>
+          <a href="#" class="text-info">Click to View Google Map</a>
+        </div>
+        <!-- col 3-->
+        <div class="col-md-4 mb-3">
+          <h2>Karie K. Hill Food</h2>
+          <p>1509 Peaceful LaneCleveland, OH 44115</p>
+          <p>
+            <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM &emsp;&emsp;
+            <i class="bi bi-telephone"></i> +880 1630-225015
+          </p>
+          <a href="#" class="text-info">Click to View Google Map</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-footer py-3 text-center" style="background-color: #4a7fbf; width: 100%;">
+    <div class="container">
+      <p class="mb-0">Copyright © 2022 | Shaheen Uddin Ahmad</p>
+    </div>
+  </div>
+
+</footer>
+
+
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+<script src="./js/script.js"></script>
+    
+</body>
+</html>
