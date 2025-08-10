@@ -1,9 +1,4 @@
-.card{
-    margin: 10px;
-    padding: 10px;
-    border: 20px;
-    border-radius: 5px;
-}
+/* عام */
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -13,6 +8,7 @@ body {
     font-weight: 100;
 }
 
+/* الصورة مع النص */
 .image-container {
     position: relative;
 }
@@ -25,8 +21,8 @@ body {
 .text-overlay {
     position: absolute;
     top: 20%;
-    left: -10%;
-    transform: translate(50%, 50%);
+    left: 50%;
+    transform: translate(-50%, -50%);
     text-align: center;
     color: white;
     padding: 20px;
@@ -36,43 +32,48 @@ body {
 .text-overlay h1 {
     margin: 0;
     font-size: 30px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .text-overlay p {
     margin: 10px 0 0;
     font-size: 1em;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
-h2{
-    display: flex;
-    text-align:center;
+/* العناوين */
+h2 {
+    text-align: center;
     margin: 10px;
     padding: 20px;
 }
 
-
-.end h1{
+.end h1 {
     text-align: center;
-    justify-content: center;
     margin: 20px;
     padding: 20px;
     color: #003366;
     font-style: italic;
 }
 
-
+/* الكروت */
 .card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     border: none;
-    border-radius: 20px;
+    border-radius: 15px;
     overflow: hidden;
-    transition: transform 0.3s, box-shadow 0.3s;
-    background-color: #ffffff;
-    width: 550px;
-    height: 550px;
-    margin: 20px;
-    padding: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card-img-top {
+    height: 220px;
+    object-fit: cover;
+}
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
 }
 
 .card:hover {
@@ -80,10 +81,8 @@ h2{
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
 }
 
-
 .card-title {
     font-size: 1.3rem;
-    margin-bottom: 10px;
     font-weight: bold;
 }
 
@@ -92,19 +91,16 @@ h2{
     color: #000000;
 }
 
-
-
-
+/* البحث */
 .collection {
-            text-align: center;
-            max-width: 600px;
-            width: 100%;
-            padding: 40px 20px;
-            background: white;
-            border-radius: 12px;
-            margin: 20px;
-            padding-left: -20px;
-        }
+    text-align: center;
+    max-width: 600px;
+    width: 100%;
+    padding: 40px 20px;
+    background: white;
+    border-radius: 12px;
+    margin: 20px auto;
+}
 
 .main-heading {
     color: #333;
@@ -148,16 +144,10 @@ h2{
     background-color: #0a74dd;
 }
 
-
-.endnav{
+/* فوتر */
+.endnav {
     display: flex;
     justify-content: center;
     margin: 10px;
     padding: 10px;
 }
-
-
-
-
-
-
