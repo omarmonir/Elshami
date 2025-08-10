@@ -34,7 +34,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   }
 
   if (isValid) {
-    const users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+    const users = JSON.parse(localStorage.getItem("users")) || [];
 
     const matchedUser = users.find(
       (user) => user.username === username && user.password === password
@@ -50,7 +50,7 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
   }
 });
 
-// ✅ Register Form Validation & Store in array with role = "user"
+// ✅ Register Form Validation & Store in users array with role = "user"
 document.getElementById("registerForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -71,20 +71,20 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
   document.getElementById("registerPhoneError").textContent = "";
   document.getElementById("registerGenderError").textContent = "";
 
-  // ✅ Username check
+  // Username check
   if (username === "") {
     document.getElementById("registerUsernameError").textContent = "Username is required";
     isValid = false;
   }
 
-  // ✅ Email check
+  // Email check
   const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
   if (!emailPattern.test(email)) {
     document.getElementById("registerEmailError").textContent = "Invalid email format";
     isValid = false;
   }
 
-  // ✅ Password check
+  // Password check
   if (password.length < 6) {
     document.getElementById("registerPasswordError").textContent = "Password must be at least 6 characters";
     isValid = false;
@@ -95,30 +95,21 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     isValid = false;
   }
 
-  // ✅ Phone number check
+  // Phone number check
   const phonePattern = /^(010|011|012|015)\d{8}$/;
   if (!phonePattern.test(phone)) {
     document.getElementById("registerPhoneError").textContent = "Invalid phone number";
     isValid = false;
   }
 
-  // ✅ Gender check
+  // Gender check
   if (!gender) {
     document.getElementById("registerGenderError").textContent = "Please select your gender";
     isValid = false;
   }
 
   if (isValid) {
-    const newUser = {
-      username: username,
-      password: password,
-      email: email,
-      phone: phone,
-      gender: gender.value,
-      role: "user" // ✅ Assign role here
-    };
-
-    let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+    let users = JSON.parse(localStorage.getItem("users")) || [];
 
     // Check for duplicate username
     const existingUser = users.find(user => user.username === username);
@@ -127,8 +118,18 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
       return;
     }
 
+    const newUser = {
+      id: Date.now(),
+      username: username,
+      password: password,
+      email: email,
+      phone: phone,
+      gender: gender.value,
+      role: "user"
+    };
+
     users.push(newUser);
-    localStorage.setItem("registeredUsers", JSON.stringify(users));
+    localStorage.setItem("users", JSON.stringify(users));
 
     alert("Registration successful! ✅");
     document.getElementById("registerForm").reset();
