@@ -1,0 +1,425 @@
+:root {
+    --piramry: #003366;
+    --secondry: rgb(254, 119, 67);
+    --accent: #4a7fbf;
+}
+
+/* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+    background-color: #ffffff !important;
+    color: #333;
+}
+
+/* Header */
+header {
+    box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25);
+    position: relative;
+    z-index: 10;
+    padding-bottom: 20px; /* مسافة داخل الهيدر من الأسفل */
+    margin-bottom: 40px;  /* مسافة بين الهيدر والمحتوى */
+}
+
+.after-header {
+    height: 40px;
+}
+
+.custom-link {
+    color: #ffffff !important;
+    transition: color 0.3s ease;
+}
+
+.custom-link:hover {
+    color: var(--accent) !important;
+}
+
+.nav {
+    background-color: var(--piramry);
+}
+
+.btn {
+    background-color: var(--accent);
+}
+
+.text {
+    color: var(--piramry);
+}
+
+.text3 {
+    color: var(--accent);
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 2rem 60px 2rem; /* padding فوق 20px وتحت 60px */
+}
+
+/* Footer */
+footer {
+    background-color: var(--piramry);
+    color: white;
+    padding: 40px 20px;
+    margin-top: 60px; /* مسافة بين المحتوى والفوتر */
+    text-align: center;
+}
+
+/* Footer المحتوى */
+.footer h2 {
+    font-weight: bold;
+}
+
+.footer p {
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.footer a {
+    text-decoration: none;
+    font-weight: bold;
+    color: var(--accent);
+}
+
+.bt {
+    margin-left: 400px;
+}
+
+/* Hero Section */
+.hero-section {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-bg-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+.hero-content {
+    z-index: 2;
+    position: relative;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    max-width: 600px;
+}
+
+/* Story Card */
+.story-card {
+    background: white;
+    border: 2px solid var(--secondry);
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 3rem 0;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 2rem;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.story-image {
+    flex: 0 0 300px;
+}
+
+.story-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    border-radius: 10px;
+    border: 2px solid var(--secondry);
+}
+
+.story-content {
+    flex: 1;
+    text-align: right;
+}
+
+.story-content h3 {
+    color: var(--secondry);
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.story-description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: #666;
+    margin-bottom: 1.5rem;
+}
+
+.story-details {
+    font-size: 0.9rem;
+    line-height: 1.7;
+    color: #555;
+}
+
+/* Our Story Section */
+.our-story-section {
+    margin: 4rem 0;
+}
+
+.our-story-title {
+    text-align: center;
+    color: var(--secondry);
+    font-size: 2rem;
+    margin-bottom: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: bold;
+}
+
+.our-story-content {
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    background: white;
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    flex-direction: row-reverse;
+}
+
+.story-text {
+    flex: 1;
+    font-size: 1rem;
+    line-height: 1.8;
+    color: #666;
+    text-align: justify;
+}
+
+.story-image-right {
+    flex: 1;
+    max-width: 400px;
+}
+
+.story-image-right img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+/* Chef Section */
+.chef-section {
+    background: linear-gradient(135deg, var(--accent), var(--piramry));
+    padding: 3rem 2rem;
+    border-radius: 20px;
+    margin: 3rem 0;
+    display: flex;
+    align-items: center;
+    gap: 3rem;
+    flex-direction: row-reverse;
+}
+
+.chef-content {
+    flex: 2;
+}
+
+.chef-subtitle {
+    color: var(--secondry);
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 0.5rem;
+}
+
+.chef-title {
+    font-size: 2.5rem;
+    color: #f5f5f5;
+    margin-bottom: 1.5rem;
+    font-weight: bold;
+}
+
+.chef-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #ffffff;
+    margin-bottom: 2rem;
+}
+
+.chef-btn {
+    background: var(--piramry);
+    color: white;
+    padding: 12px 30px;
+    border: none;
+    border-radius: 25px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: all 0.3s ease;
+}
+
+.chef-btn:hover {
+    background: var(--accent);
+    
+}
+
+.chef-image {
+    flex: 1;
+    max-width: 300px;
+}
+
+.chef-image img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 15px;
+}
+
+/* Animation */
+.story-card,
+.our-story-section,
+.chef-section {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fadeInUp 0.8s ease forwards;
+}
+
+.our-story-section {
+    animation-delay: 0.1s;
+}
+
+.chef-section {
+    animation-delay: 0.2s;
+}
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Our Team Section */
+.team-title {
+    color: var(--secondry);
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    text-align: center;
+}
+
+.team-subtitle {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 2.5rem;
+    text-align: center;
+}
+
+.team-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.team-member {
+    position: relative;
+    width: 360px;
+    height: 480px;
+    text-align: center;
+    overflow: hidden;
+    padding: 10px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.team-member::before {
+    content: '';
+    position: absolute;
+    top: 90px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 330px;
+    height: 330px;
+    border: 3px solid #007BFF;
+    border-radius: 50%;
+    background: white;
+    z-index: 1;
+}
+
+.member-image-container {
+    position: relative;
+    width: 180px;
+    height: 180px;
+    margin: 0 auto 10px;
+    z-index: 2;
+    border: 3px solid #007BFF;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.member-image-container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.member-name {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+    margin-bottom: 8px;
+    text-align: center;
+    position: relative;
+    z-index: 3;
+}
+
+.member-description {
+    font-size: 0.95rem;
+    color: #666;
+    line-height: 1.8;
+    text-align: center;
+    padding: 0 15px;
+    position: relative;
+    z-index: 3;
+}
+.branch-title {
+  text-align: center; /* يخلي النص في النص */
+  margin-bottom: 10px; /* مسافة بسيطة بين العنوان والفوتر */
+}
+
+.branch-title h3 {
+  font-size: 2.5rem; /* حجم كبير للنص */
+  color: #2c3e50; /* لون نص غامق */
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 1.5px;
+  margin: 0;
+}
