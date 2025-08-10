@@ -41,9 +41,17 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     );
 
     if (matchedUser) {
+      // ✅ تخزين اسم المستخدم الحالي في LocalStorage
+      localStorage.setItem("currentUser", matchedUser.username);
+
       alert(`Login successful! ✅\nWelcome ${matchedUser.username} (${matchedUser.role})`);
-      // Example redirect:
-      // if (matchedUser.role === "admin") { window.location.href = "admin.html"; }
+
+      // مثال للتحويل بعد تسجيل الدخول
+      // if (matchedUser.role === "admin") {
+      //   window.location.href = "admin.html";
+      // } else {
+      //   window.location.href = "home.html";
+      // }
     } else {
       alert("❌ Invalid username or password");
     }
@@ -109,7 +117,29 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
   }
 
   if (isValid) {
+<<<<<<< HEAD
     let users = JSON.parse(localStorage.getItem("users")) || [];
+=======
+    const newUser = {
+      username: username,
+      password: password,
+      email: email,
+      phone: phone,
+      gender: gender.value,
+      role: "user", // ✅ Assign role here
+      fullName: "", // هيتملوا من صفحة البروفايل
+      title: "",
+      age: "",
+      about: "",
+      country: "",
+      postcode: "",
+      city: "",
+      address: "",
+      image: "" // صورة البروفايل
+    };
+
+    let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
+>>>>>>> 6c3047f7b633a3cb12543f1003841e32d96471b8
 
     // Check for duplicate username
     const existingUser = users.find(user => user.username === username);
