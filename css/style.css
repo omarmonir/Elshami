@@ -1,60 +1,59 @@
 :root{
     --piramry:  #003366;
     --secondry: rgb(254, 119, 67) 
-    
+
+
   }
   body {
-  
     margin: 0;
     padding: 0;
-    /* background-color: #ffffff  !important; */
-  
   }
-  
+
+
+
   header {
-  
-    /* box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25); */
-  
     position: relative;
     z-index: 10;
   }
-  
-  
-  
+
+
   .after-header {
     height: 40px;
-  
   }
-  
-  
+
+
   .custom-link {
     color: #ffffff !important; 
     transition: color 0.3s ease;
   }
-  
-  .custom-link:hover {
+
+
+.custom-link:hover {
     color: #4a7fbf !important; 
   }
-  
-  
-       
-  .nav {
+
+
+.nav {
     background-color: var(--piramry) ;
   }
-  
-  .btnn{
+
+
+  .btn{
     background-color:#4a7fbf ;
   }
+
+
   .text{
-    color: #003366;
+    color: #ffffff;
   }
-  
+
   .text3{
     color:#4a7fbf
   }
-.btnn:hover{
-    background-color:#71adf7 ;
+.btn:hover{
+    background-color:#003366 ;
   }
+
 
 
 
