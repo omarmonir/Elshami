@@ -2,31 +2,39 @@
   --primary: #003366;
   --secondary: #4a7fbf;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: #ffffff;
   font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
+  color: #333;
 }
+
 header {
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25);
 }
+
 .nav {
   background-color: var(--primary);
 }
+
 .custom-link {
   color: #ffffff !important;
   transition: color 0.3s ease;
 }
+
 .custom-link:hover {
   color: var(--secondary) !important;
 }
+
 .header-user-pic img {
   width: 45px;
   height: 45px;
@@ -34,10 +42,12 @@ header {
   border: 2px solid white;
   object-fit: cover;
 }
+
 .container {
   display: flex;
   flex: 1;
 }
+
 .sidebar {
   width: 250px;
   background: var(--primary);
@@ -47,10 +57,12 @@ header {
   flex-direction: column;
   align-items: center;
 }
+
 .profile-pic {
   text-align: center;
   margin-bottom: 40px;
 }
+
 .profile-pic img {
   border-radius: 50%;
   width: 110px;
@@ -58,19 +70,23 @@ header {
   border: 3px solid #fff;
   object-fit: cover;
 }
+
 .profile-pic h3 {
   margin: 10px 0 5px;
 }
+
 .profile-pic p {
   font-size: 0.9rem;
   color: #bbb;
 }
+
 .menu {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .menu a {
   display: block;
   padding: 12px;
@@ -83,19 +99,63 @@ header {
   font-weight: 500;
   transition: background 0.3s, transform 0.2s;
 }
+
 .menu a:hover {
   background: #3e5873;
   transform: translateY(-2px);
 }
+
 .menu a.active {
   background: linear-gradient(90deg, var(--secondary), var(--primary));
   border-color: var(--primary);
 }
+
 .form-section {
   flex: 1;
   padding: 40px;
   background: #fff;
 }
+
+/* -------- Profile Display Specific -------- */
+.profile-info {
+  background: #fff;
+  padding: 40px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgb(0 0 0 / 0.1);
+}
+
+.profile-info h2 {
+  margin-bottom: 20px;
+  border-bottom: 2px solid var(--secondary);
+  padding-bottom: 6px;
+  color: var(--primary);
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+}
+
+.info-row:last-child {
+  border-bottom: none;
+}
+
+.label {
+  font-weight: 600;
+  color: var(--primary);
+  min-width: 140px;
+}
+
+.value {
+  color: #555;
+  flex-grow: 1;
+  text-align: right;
+  white-space: pre-wrap;
+}
+
+/* -------- Typography & Spacing -------- */
 h2 {
   margin-top: 30px;
   margin-bottom: 15px;
@@ -103,94 +163,32 @@ h2 {
   padding-bottom: 5px;
   color: var(--primary);
 }
-.basic-grid, .contact-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 20px;
-}
-.full {
-  grid-column: span 2;
-}
-.form-row {
-  display: flex;
-  flex-direction: column;
-}
-label {
-  margin-bottom: 6px;
-  font-weight: bold;
-  font-size: 0.9rem;
-  color: var(--primary);
-}
-input, textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fdfdfd;
-  font-size: 0.95rem;
-}
-textarea {
-  resize: vertical;
-  min-height: 80px;
-}
-.error-message {
-  color: red;
-  font-size: 0.85rem;
-  margin-top: 4px;
-  min-height: 16px;
-}
-button {
-  margin-top: 25px;
-  padding: 12px 20px;
-  background: var(--secondary);
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: background 0.3s;
-}
-button:hover {
-  background: var(--primary);
-}
 
-/* زرار العرض (View Profile) الجديد */
-#viewProfileBtn {
-  margin-top: 15px;
-  padding: 12px 20px;
-  background: #28a745; /* أخضر */
-  color: #fff;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 600;
-  transition: background 0.3s;
-}
-#viewProfileBtn:hover {
-  background: #218838; /* أخضر أغمق عند المرور */
-}
-
-/* Footer */
+/* Footer styles */
 .footer h3 {
   font-weight: bold;
 }
+
 .footer p {
   margin: 5px 0;
   font-weight: bold;
 }
+
 .footer a {
   text-decoration: none;
   font-weight: bold;
   color: #4a7fbf;
 }
-.bt {
-  margin-left: 400px;
+
+.footer a:hover {
+  text-decoration: underline;
 }
+
 .branch-title {
   text-align: center;
   margin-bottom: 10px;
 }
+
 .branch-title h3 {
   font-size: 2.5rem;
   color: #2c3e50;
