@@ -2,11 +2,13 @@
   --primary: #003366;
   --secondary: #4a7fbf;
 }
-
-body {
-  margin: 0;
+*{
+    margin: 0;
   padding: 0;
-  background-color: #fff3ed;
+}
+body {
+
+  background-color: #ffffff;
   font-family: 'Roboto', sans-serif;
   display: flex;
   flex-direction: column;
@@ -51,6 +53,7 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
+  /* margin-left: -100px; */
 }
 
 .profile-pic {
@@ -177,7 +180,7 @@ button {
 button:hover {
   background: var(--primary);
 }
-
+/* 
 .footer {
   background-color: var(--primary);
   color: white;
@@ -218,4 +221,45 @@ html, body {
 
 main {
   flex: 1;
+} */
+
+
+
+
+
+
+
+
+.footer h3{
+  font-weight: bold;
+}
+
+.footer p {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.footer a {
+  text-decoration: none;
+  font-weight: bold;
+  color: #4a7fbf;
+
+
+}
+
+.bt{
+  margin-left: 400px;
+}
+.branch-title {
+  text-align: center; /* يخلي النص في النص */
+  margin-bottom: 10px; /* مسافة بسيطة بين العنوان والفوتر */
+}
+
+.branch-title h3 {
+  font-size: 2.5rem; /* حجم كبير للنص */
+  color: #2c3e50; /* لون نص غامق */
+  font-weight: bold;
+  font-family: 'Arial', sans-serif;
+  letter-spacing: 1.5px;
+  margin: 0;
 }
