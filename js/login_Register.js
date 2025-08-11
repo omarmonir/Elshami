@@ -1,14 +1,40 @@
+// ✅ Function to show notification (Toast) with animation
+function showNotification(message, type = "success") {
+  let container = document.getElementById("notification-container");
+
+  // إنشاء الكونتينر لو مش موجود
+  if (!container) {
+    container = document.createElement("div");
+    container.id = "notification-container";
+    document.body.appendChild(container);
+  }
+
+  const notification = document.createElement("div");
+  notification.className = `notification ${type}`;
+  notification.textContent = message;
+
+  container.appendChild(notification);
+
+  // الإزالة بعد 2.5 ثانية
+  setTimeout(() => {
+    notification.style.animation = "fadeOut 0.4s forwards";
+    setTimeout(() => {
+      notification.remove();
+    }, 400);
+  }, 2500);
+}
+
 // ✅ Toggle between Login and Register
-const container = document.querySelector(".container");
+const containerEl = document.querySelector(".container");
 const loginBtn = document.querySelector(".login-btn");
 const registerBtn = document.querySelector(".register-btn");
 
 registerBtn.addEventListener("click", () => {
-  container.classList.add("active");
+  containerEl.classList.add("active");
 });
 
 loginBtn.addEventListener("click", () => {
-  container.classList.remove("active");
+  containerEl.classList.remove("active");
 });
 
 // ✅ Login Form Validation & Check from users array
@@ -41,24 +67,19 @@ document.getElementById("loginForm").addEventListener("submit", function (e) {
     );
 
     if (matchedUser) {
-      // ✅ تخزين اسم المستخدم الحالي في LocalStorage
       localStorage.setItem("currentUser", matchedUser.username);
+      showNotification("✅ Login successful! Redirecting...", "success");
 
-      alert(`Login successful! ✅\nWelcome ${matchedUser.username} (${matchedUser.role})`);
-
-      // مثال للتحويل بعد تسجيل الدخول
-      // if (matchedUser.role === "admin") {
-      //   window.location.href = "admin.html";
-      // } else {
-      //   window.location.href = "home.html";
-      // }
+      setTimeout(() => {
+        window.location.href = "index.html";
+      }, 2000);
     } else {
-      alert("❌ Invalid username or password");
+      showNotification("❌ Invalid username or password", "error");
     }
   }
 });
 
-// ✅ Register Form Validation & Store in users array with role = "user"
+// ✅ Register Form Validation & Store in users array
 document.getElementById("registerForm").addEventListener("submit", function (e) {
   e.preventDefault();
 
@@ -71,7 +92,6 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
 
   let isValid = true;
 
-  // Clear previous error messages
   document.getElementById("registerUsernameError").textContent = "";
   document.getElementById("registerEmailError").textContent = "";
   document.getElementById("registerPasswordError").textContent = "";
@@ -79,20 +99,17 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
   document.getElementById("registerPhoneError").textContent = "";
   document.getElementById("registerGenderError").textContent = "";
 
-  // Username check
   if (username === "") {
     document.getElementById("registerUsernameError").textContent = "Username is required";
     isValid = false;
   }
 
-  // Email check
   const emailPattern = /^[^ ]+@[^ ]+\.[a-z]{2,3}$/;
   if (!emailPattern.test(email)) {
     document.getElementById("registerEmailError").textContent = "Invalid email format";
     isValid = false;
   }
 
-  // Password check
   if (password.length < 6) {
     document.getElementById("registerPasswordError").textContent = "Password must be at least 6 characters";
     isValid = false;
@@ -103,48 +120,23 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     isValid = false;
   }
 
-  // Phone number check
   const phonePattern = /^(010|011|012|015)\d{8}$/;
   if (!phonePattern.test(phone)) {
     document.getElementById("registerPhoneError").textContent = "Invalid phone number";
     isValid = false;
   }
 
-  // Gender check
   if (!gender) {
     document.getElementById("registerGenderError").textContent = "Please select your gender";
     isValid = false;
   }
 
   if (isValid) {
-<<<<<<< HEAD
     let users = JSON.parse(localStorage.getItem("users")) || [];
-=======
-    const newUser = {
-      username: username,
-      password: password,
-      email: email,
-      phone: phone,
-      gender: gender.value,
-      role: "user", // ✅ Assign role here
-      fullName: "", // هيتملوا من صفحة البروفايل
-      title: "",
-      age: "",
-      about: "",
-      country: "",
-      postcode: "",
-      city: "",
-      address: "",
-      image: "" // صورة البروفايل
-    };
 
-    let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
->>>>>>> 6c3047f7b633a3cb12543f1003841e32d96471b8
-
-    // Check for duplicate username
     const existingUser = users.find(user => user.username === username);
     if (existingUser) {
-      alert("❌ Username already exists. Please choose another one.");
+      showNotification("❌ Username already exists. Please choose another one.", "error");
       return;
     }
 
@@ -161,8 +153,12 @@ document.getElementById("registerForm").addEventListener("submit", function (e) 
     users.push(newUser);
     localStorage.setItem("users", JSON.stringify(users));
 
-    alert("Registration successful! ✅");
-    document.getElementById("registerForm").reset();
-    container.classList.remove("active");
+    localStorage.setItem("currentUser", username);
+
+    showNotification("✅ Registration successful! Redirecting...", "success");
+
+    setTimeout(() => {
+      window.location.href = "index.html";
+    }, 2000);
   }
 });
