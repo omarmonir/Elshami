@@ -207,3 +207,78 @@ h2 {
             box-shadow: 0 0.5rem 1rem rgba(0,0,0,0.15);
 }
 
+
+
+
+
+        /*filter*/
+
+
+.filter-box {
+    margin-bottom: 20px;
+}
+.filter-box input {
+    padding: 8px;
+    font-size: 16px;
+    width: 200px;
+    margin-right: 10px;
+}
+.filter-box button {
+    padding: 8px 15px;
+    font-size: 16px;
+    background-color: #d9534f;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+}
+.filter-box button:hover {
+    background-color: #c9302c;
+}
+
+.yousef {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+.left-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+.left-column img {
+    width: 100%;
+    border-radius: 8px;
+}
+.small-images {
+    display: flex;
+    gap: 10px;
+}
+.small-images img {
+    width: 50%;
+    border-radius: 8px;
+}
+.right-column {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+.right-column p { color: #444; line-height: 1.5; }
+.order-btn {
+    background-color: #d9534f;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    font-size: 18px;
+    border-radius: 8px;
+    text-align: center;
+    align-self: flex-start;
+}
+.order-btn:hover { background-color: #c9302c; }
+
+@media(max-width:768px) {
+    .yousef { flex-direction: column; }
+    .small-images img { width: 100%; }
+}
