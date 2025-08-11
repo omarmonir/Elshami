@@ -7,8 +7,11 @@
     <title>Real Madrid</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="./css/prdouct.css">
 </head>
 
@@ -36,7 +39,7 @@
     <div class="d-flex align-items-center gap-2">
         <div><img src="./Images/cart_icon.png" alt="cart"></div>
         <div class="small text-dark , font-weight: bold">
-        <div class="num+p             ">
+        <div class="num+p">
         <div>Delivery Order</div>
         <div>+880 1630 225 015</div>
         </div>
@@ -52,7 +55,7 @@
 
 <main>
 
-            <!--top image-->
+    <!--top image-->
 
     <div class="image-container">
         <img src="./Images/image_items_bg.jpg" alt="background photo">
@@ -63,214 +66,27 @@
     </div>
 
 
-        <!--search-->
+<body class="p-4">
 
-<div class="collection">
-        <h1 class="main-heading">It's the food and groceries you Love, delivered</h1>
-        <div class="search-collection">
-            <input type="text" placeholder="Search your Items">
-            <button>Go</button>
+<div class="container">
+    <h2 class="text-center mb-4">It’s the food and groceries you Love, delivered</h2>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by name, category, toppings">
+        </div>
+        <div class="col-md-3">
+            <input type="number" id="minPrice" class="form-control" placeholder="Min Price">
+        </div>
+        <div class="col-md-3">
+            <input type="number" id="maxPrice" class="form-control" placeholder="Max Price">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" onclick="searchProducts()">Search</button>
         </div>
     </div>
 
-
-
-<!--products-->
-
-<div class="container">
-
-<div class="row">
-    <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_7.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Mutton or lamb biriyani</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>30$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-</div>
-</div>
-    </div>
-
-
-    <div class="col">
-<div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_1.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Chicken Supreme Pizza</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>40$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-</div>
-</div>
-</div>
-
-
-    <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_2.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Hamburger Burger with Beef</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>50$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-</div>
-</div>
-    </div>
-
-
-    <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_3.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Belgium waffles with strawberries</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>70$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-</div>
-</div>
-    </div>
-
-
-    <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_4.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Chicken skewers</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>90$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-</div>
-</div>
-    </div>
-
-
-    <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_6.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Spicy fried tubtim fish salad</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>90$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-
-</div>
-</div>
-    </div>
-
-
-</div>
-
-
-    <div class="image-container">
-        <img src="./Images/image_itemsList_ooffer_2.jpg" alt="background photo">
-    </div>
-
-<div class="container">
-
-<div class="row">
-
-
-    <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_8.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Fresh cola drink with green lime</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>40$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-
-</div>
-</div>
-    </div>
-
-
-        <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_9.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Ice cream cone</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>30$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-
-</div>
-</div>
-    </div>
-
-
-
-
-        <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_10.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Chocolate ice cream</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>70$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-
-</div>
-</div>
-    </div>
-
-
-
-
-
-        <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_11.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Healthy breakfast</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>55$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-
-</div>
-</div>
-    </div>
-
-
-
-
-
-        <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_12.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Breakfast with coffee and fresh croissants</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>88$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-
-</div>
-</div>
-    </div>
-
-
-
-
-
-        <div class="col">
-    <div class="card" style="width: 18rem;">
-<img id="food" src="./Images/image_itemsList_14.jpg" class="card-img-top" alt="">
-<div class="card-body">
-    <h5 class="card-title">Ried eggs, sausages, zucchini</h5>
-    <p class="card-text">Topped with chicken, onion, capsicum, black olive & Green chilli</p>
-    <p class="card-text"><strong>Price: </strong>77$</p>
-    <a href="#" class="btn btn-primary">Add to cart</a>
-
-</div>
-</div>
-    </div>
-
-
-
-
-
-</div>
-</div>
+    <div class="row" id="menu-container"></div>
 </div>
 
 
@@ -344,7 +160,7 @@
 </footer>
 
 
-
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
 <script src="./js/prdouct.js"></script>
 </body>

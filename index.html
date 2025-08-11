@@ -11,6 +11,7 @@
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <link rel="stylesheet" href="./css/style.css">
+<<<<<<< HEAD
 </head>
 
 <body style="font-family: 'Roboto', sans-serif; background-color: #fff3ed;">
@@ -439,6 +440,211 @@
 </head>
 <body>
 <!-- >>>>>>> 6c3047f7b633a3cb12543f1003841e32d96471b8 -->
+=======
+</head>
+
+<body >
+
+<!-- HEADER -->
+
+<header>
+
+
+  <div class="nav py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
+
+    <div class="d-flex align-items-center">
+      <img src="./Images/logo.png" alt="Logo" height="50">
+    </div>
+
+
+    <nav class="nav mx-auto">
+      <a class="nav-link fw-bold custom-link" href="#">HOME</a>
+      <a class="nav-link fw-bold custom-link" href="#">ABOUT</a>
+      <a class="nav-link fw-bold custom-link" href="#">ITEMS</a>
+      <a class="nav-link fw-bold custom-link" href="#">PAGES</a>
+      <a class="nav-link fw-bold custom-link" href="#">CONTACT</a>
+    </nav>
+>>>>>>> 1bc8ea9484ac1b7c729d726a66e87118c90d4522
     
-</body>
-</html>
+    <!-- -->
+    <div class="d-flex align-items-center gap-3">
+      <div class="d-flex align-items-center gap-2">
+        <div><img src="./Images/cart_icon.png" alt="cart"></div>
+        <div class="small text-light , font-weight: bold">
+        <div class="num+p  ">
+           <div>Delivery Order</div>
+          <div>+880 1630 225 015</div>
+          </div>
+      </div>
+ 
+        <img src="./Images/food 1.png" alt="bike" height="24">
+      </div>
+      <button class="btn btnn rounded-pill px-3">LOGIN</button>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+
+
+
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+    <!-- Bootstrap Footer -->
+    <footer class="footer text-white">
+      <div class="top-footer py-4" style="background-color: #003366;">
+        <div class="container">
+          <div class="row text-center">
+            <!-- col 1-->
+            <div class="col-md-4 mb-3">
+              <h2>Robert Food</h2>
+              <p>1986 Hilltop DriveBorger, TX 79007</p>
+              <p>
+                <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM   &emsp;&emsp; 
+                <i class="bi bi-telephone"></i> +880 1630-225015
+              </p>
+              <a href="#" class="text-info ">Click to View Google Map</a>
+            </div>
+            <!--  col 2-->
+            <div class="col-md-4 mb-3">
+              <h2>Mark A. Reed Food</h2>
+              <p>4877 Rose AvenueNew Orleans, LA 70112</p>
+              <p>
+                <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM &emsp;&emsp;
+                                  <!-- علشان اعمل المسافه بينهم -->
+                <i class="bi bi-telephone"></i> +880 1630-225015
+              </p>
+              <a href="#" class="text-info ">Click to View Google Map</a>
+            </div>
+            <!--   col 3-->
+            <div class="col-md-4 mb-3">
+              <h2>Karie K. Hill Food</h2>
+              <p>1509 Peaceful LaneCleveland, OH 44115</p>
+              <p>
+                <i class="bi bi-clock"></i> 7.30 AM - 9.30 PM&emsp;&emsp;
+                <i class="bi bi-telephone"></i> +880 1630-225015
+              </p>
+              <a href="#" class="text-info ">Click to View Google Map</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    
+      <!--  copyright-->
+      <div class="bottom-footer py-3 text-center" style="background-color: #4a7fbf;">
+        <p class="mb-0">Copyright © 2022 | Shaheen Uddin Ahmad</p>
+      </div>
+    </footer>
+    
+  
+  
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  
+<script>
+window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentStatus = urlParams.get('payment');
+    
+    if (paymentStatus === 'success') {
+        // استرجاع الطلب المؤقت اللي اتحفظ قبل التحويل لسترايب
+        const pendingOrder = JSON.parse(localStorage.getItem("pendingOrder"));
+        if (pendingOrder) {
+            const orders = JSON.parse(localStorage.getItem("orders")) || [];
+            orders.push(pendingOrder);
+            localStorage.setItem("orders", JSON.stringify(orders));
+            localStorage.removeItem("pendingOrder");
+        }
+
+        localStorage.removeItem('cart');
+        showPaymentSuccessNotification();
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+    } else if (paymentStatus === 'cancelled') {
+        showPaymentCancelledNotification();
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
+
+function showPaymentSuccessNotification() {
+    const notification = document.createElement('div');
+    notification.className = 'alert alert-success alert-dismissible fade show position-fixed';
+    notification.style.cssText = `
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 350px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    `;
+    
+    notification.innerHTML = `
+        <div class="d-flex align-items-center">
+            <i class="fas fa-check-circle text-success me-3" style="font-size: 1.5rem;"></i>
+            <div>
+                <strong>Payment Successful! 🎉</strong><br>
+                <small>Thank you for your order. Your payment has been processed successfully.</small>
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 7000);
+}
+
+function showPaymentCancelledNotification() {
+    const notification = document.createElement('div');
+    notification.className = 'alert alert-warning alert-dismissible fade show position-fixed';
+    notification.style.cssText = `
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 350px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    `;
+    
+    notification.innerHTML = `
+        <div class="d-flex align-items-center">
+            <i class="fas fa-exclamation-circle text-warning me-3" style="font-size: 1.5rem;"></i>
+            <div>
+                <strong>Payment Cancelled</strong><br>
+                <small>Your order is still in the cart. You can complete it anytime.</small>
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}
+</script>
+
+  <script src="script.js"></script>
+      
+  </body>
+  </html>
+
+
+
+
+
