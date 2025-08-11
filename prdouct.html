@@ -66,50 +66,28 @@
     </div>
 
 
-        <!--search-->
+<body class="p-4">
 
-    <div class="collection">
-        <h1 class="main-heading">It's the food and groceries you Love, delivered</h1>
-        <div class="search-collection">
-            <input type="text" id="searchInput" placeholder="Search your Items" class="form-control">
-            <button id="searchButton" class="btn btn-primary">Go</button>
+<div class="container">
+    <h2 class="text-center mb-4">It’s the food and groceries you Love, delivered</h2>
+
+    <div class="row mb-3">
+        <div class="col-md-4">
+            <input type="text" id="searchInput" class="form-control" placeholder="Search by name, category, toppings">
+        </div>
+        <div class="col-md-3">
+            <input type="number" id="minPrice" class="form-control" placeholder="Min Price">
+        </div>
+        <div class="col-md-3">
+            <input type="number" id="maxPrice" class="form-control" placeholder="Max Price">
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-primary w-100" onclick="searchProducts()">Search</button>
         </div>
     </div>
 
-    <!-- Results Container -->
-    <div class="container mt-5" id="resultsContainer"></div>
-
-    <!-- Toast Container -->
-    <div class="position-fixed top-0 end-0 p-3" style="z-index: 1100; width: 350px;">
-        <div id="toastContainer"></div>
-    </div>
-
-
-
-<!--filter-->
-
-<div class="container py-4">
-    <!-- Price Range -->
-    <div class="mb-4">
-        <label for="priceRange" class="form-label fw-bold">
-            Max Price: <span id="priceValue" class="text-success fw-bold">$50</span>
-        </label>
-        <input type="range" class="form-range" id="priceRange" min="0" max="50" step="5" value="50">
-    </div>
-
-    <!-- Results -->
-    <div id="resultsContainer" class="row g-4"></div>
-
+    <div class="row" id="menu-container"></div>
 </div>
-
-
-<!--products-->
-
-    <div class="container my-5">
-        <div class="row" id="menu-container">
-            <!-- Products will be loaded here -->
-        </div>
-    </div>
 
 
 
