@@ -19,7 +19,6 @@
 
 <header>
 
-
   <div class="nav py-3 px-4 d-flex justify-content-between align-items-center flex-wrap">
 
     <div class="d-flex align-items-center">
@@ -126,15 +125,21 @@ window.addEventListener('DOMContentLoaded', function() {
     const paymentStatus = urlParams.get('payment');
     
     if (paymentStatus === 'success') {
-        localStorage.removeItem('cart');
-        
-        showPaymentSuccessNotification();
-        
-        window.history.replaceState({}, document.title, window.location.pathname);
-    } else if (paymentStatus === 'cancelled') {
+        // استرجاع الطلب المؤقت اللي اتحفظ قبل التحويل لسترايب
+        const pendingOrder = JSON.parse(localStorage.getItem("pendingOrder"));
+        if (pendingOrder) {
+            const orders = JSON.parse(localStorage.getItem("orders")) || [];
+            orders.push(pendingOrder);
+            localStorage.setItem("orders", JSON.stringify(orders));
+            localStorage.removeItem("pendingOrder");
+        }
 
-      showPaymentCancelledNotification();
-        
+        localStorage.removeItem('cart');
+        showPaymentSuccessNotification();
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+    } else if (paymentStatus === 'cancelled') {
+        showPaymentCancelledNotification();
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
@@ -171,7 +176,6 @@ function showPaymentSuccessNotification() {
 }
 
 function showPaymentCancelledNotification() {
-    // Create cancelled notification
     const notification = document.createElement('div');
     notification.className = 'alert alert-warning alert-dismissible fade show position-fixed';
     notification.style.cssText = `
@@ -195,7 +199,6 @@ function showPaymentCancelledNotification() {
     
     document.body.appendChild(notification);
     
-    // Auto remove after 5 seconds
     setTimeout(() => {
         if (notification.parentNode) {
             notification.remove();
@@ -203,6 +206,7 @@ function showPaymentCancelledNotification() {
     }, 5000);
 }
 </script>
+
   <script src="script.js"></script>
       
   </body>

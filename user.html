@@ -71,13 +71,17 @@
         <a href="profile.html" class="menu-link active">Profile</a>
         <a href="cart.html" class="menu-link">My Cart</a>
         <a href="shop.html" class="menu-link">Shop</a>
-        <a href="logout.html" class="menu-link">Logout</a>
+        <!-- <a href="logout.html" class="menu-link">Logout</a> -->
       </nav>
     </div>
 
     <!-- Form Section -->
     <div class="form-section">
       <form id="editProfileForm" novalidate>
+        
+        <!-- Notification area for success/error messages -->
+        <div id="notification" class="notification" role="alert" aria-live="assertive" style="display:none;"></div>
+        
         <h2>BASIC INFORMATION</h2>
         <div class="basic-grid">
           <div class="form-row full">
@@ -128,8 +132,8 @@
             <input type="text" id="address">
           </div>
         </div>
-        <button type="submit" id="saveBtn">Save Setting</button>
-        <button type="button" id="viewProfileBtn">View Profile</button>
+        <button type="submit" id="saveBtn" class="btn btn-primary mt-3">Save Setting</button>
+        <button type="button" id="viewProfileBtn" class="btn btn-secondary mt-3 ms-2">View Profile</button>
       </form>
     </div>
   </main>

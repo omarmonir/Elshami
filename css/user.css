@@ -1,12 +1,20 @@
 :root {
   --primary: #003366;
   --secondary: #4a7fbf;
+  --success-bg: #d4edda;
+  --success-border: #c3e6cb;
+  --success-text: #155724;
+  --error-bg: #f8d7da;
+  --error-border: #f5c6cb;
+  --error-text: #721c24;
 }
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
+
 body {
   background-color: #ffffff;
   font-family: 'Roboto', sans-serif;
@@ -14,19 +22,24 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
+
 header {
   box-shadow: 0 8px 20px rgba(255, 255, 255, 0.25);
 }
+
 .nav {
   background-color: var(--primary);
 }
+
 .custom-link {
   color: #ffffff !important;
   transition: color 0.3s ease;
 }
+
 .custom-link:hover {
   color: var(--secondary) !important;
 }
+
 .header-user-pic img {
   width: 45px;
   height: 45px;
@@ -34,10 +47,12 @@ header {
   border: 2px solid white;
   object-fit: cover;
 }
+
 .container {
   display: flex;
   flex: 1;
 }
+
 .sidebar {
   width: 250px;
   background: var(--primary);
@@ -47,10 +62,12 @@ header {
   flex-direction: column;
   align-items: center;
 }
+
 .profile-pic {
   text-align: center;
   margin-bottom: 40px;
 }
+
 .profile-pic img {
   border-radius: 50%;
   width: 110px;
@@ -58,19 +75,23 @@ header {
   border: 3px solid #fff;
   object-fit: cover;
 }
+
 .profile-pic h3 {
   margin: 10px 0 5px;
 }
+
 .profile-pic p {
   font-size: 0.9rem;
   color: #bbb;
 }
+
 .menu {
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 10px;
 }
+
 .menu a {
   display: block;
   padding: 12px;
@@ -83,19 +104,23 @@ header {
   font-weight: 500;
   transition: background 0.3s, transform 0.2s;
 }
+
 .menu a:hover {
   background: #3e5873;
   transform: translateY(-2px);
 }
+
 .menu a.active {
   background: linear-gradient(90deg, var(--secondary), var(--primary));
   border-color: var(--primary);
 }
+
 .form-section {
   flex: 1;
   padding: 40px;
   background: #fff;
 }
+
 h2 {
   margin-top: 30px;
   margin-bottom: 15px;
@@ -103,24 +128,29 @@ h2 {
   padding-bottom: 5px;
   color: var(--primary);
 }
+
 .basic-grid, .contact-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 20px;
 }
+
 .full {
   grid-column: span 2;
 }
+
 .form-row {
   display: flex;
   flex-direction: column;
 }
+
 label {
   margin-bottom: 6px;
   font-weight: bold;
   font-size: 0.9rem;
   color: var(--primary);
 }
+
 input, textarea {
   padding: 10px;
   border: 1px solid #ccc;
@@ -128,16 +158,19 @@ input, textarea {
   background: #fdfdfd;
   font-size: 0.95rem;
 }
+
 textarea {
   resize: vertical;
   min-height: 80px;
 }
+
 .error-message {
   color: red;
   font-size: 0.85rem;
   margin-top: 4px;
   min-height: 16px;
 }
+
 button {
   margin-top: 25px;
   padding: 12px 20px;
@@ -150,6 +183,7 @@ button {
   font-weight: 500;
   transition: background 0.3s;
 }
+
 button:hover {
   background: var(--primary);
 }
@@ -167,6 +201,7 @@ button:hover {
   font-weight: 600;
   transition: background 0.3s;
 }
+
 #viewProfileBtn:hover {
   background: #218838; /* أخضر أغمق عند المرور */
 }
@@ -175,22 +210,27 @@ button:hover {
 .footer h3 {
   font-weight: bold;
 }
+
 .footer p {
   margin: 5px 0;
   font-weight: bold;
 }
+
 .footer a {
   text-decoration: none;
   font-weight: bold;
   color: #4a7fbf;
 }
+
 .bt {
   margin-left: 400px;
 }
+
 .branch-title {
   text-align: center;
   margin-bottom: 10px;
 }
+
 .branch-title h3 {
   font-size: 2.5rem;
   color: #2c3e50;
@@ -198,4 +238,32 @@ button:hover {
   font-family: 'Arial', sans-serif;
   letter-spacing: 1.5px;
   margin: 0;
+}
+
+/* التنسيق الخاص بمنطقة الإشعارات (notification) */
+.notification {
+  display: none; /* تختفي تلقائياً */
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1.5px solid transparent;
+  transition: opacity 0.3s ease;
+}
+
+/* حالة النجاح */
+.notification.success {
+  display: block;
+  background-color: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success-text);
+}
+
+/* حالة الخطأ */
+.notification.error {
+  display: block;
+  background-color: var(--error-bg);
+  border-color: var(--error-border);
+  color: var(--error-text);
 }

@@ -110,6 +110,14 @@ header {
   border-color: var(--primary);
 }
 
+/* تعديل لتعطيل زرار profile بدون تغيير الشكل واللون */
+.menu a.disabled {
+  pointer-events: none; /* منع التفاعل */
+  cursor: default; /* شكل المؤشر */
+  /* لا تغيير في اللون أو الخلفية، يظل كما هو */
+}
+/* نهاية التعديل */
+
 .form-section {
   flex: 1;
   padding: 40px;

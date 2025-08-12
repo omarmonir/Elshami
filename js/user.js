@@ -25,6 +25,17 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     generalErrorMsg.textContent = ""; // نظف الرسالة في البداية
 
+    // عنصر الإشعار العام (notification)
+    let notification = document.getElementById("notification");
+    if (!notification) {
+        notification = document.createElement("div");
+        notification.id = "notification";
+        notification.className = "notification"; // تأكد من وجود هذه الكلاس في CSS
+        // وضع عنصر الإشعار قبل الفورم
+        form.parentElement.insertBefore(notification, form);
+    }
+    notification.style.display = "none";
+
     function fillProfileFields() {
         document.getElementById("fullName").value = currentUser.fullName || currentUser.username || "";
         document.getElementById("title").value = currentUser.title || "";
@@ -74,6 +85,19 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     }
 
+    // دالة إظهار الإشعار مع النوع (نجاح أو خطأ) مع اختفاء تلقائي بعد 3 ثواني
+    function showNotification(message, type = "success") {
+        notification.textContent = message;
+        notification.className = "notification " + (type === "success" ? "success" : "error");
+        notification.style.display = "block";
+
+        setTimeout(() => {
+            notification.style.display = "none";
+            notification.textContent = "";
+            notification.className = "notification";
+        }, 3000);
+    }
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -113,7 +137,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
 
         generalErrorMsg.textContent = ""; // نظف رسالة الخطأ العامة
-        alert("Profile updated successfully!");
+        showNotification("Profile updated successfully!", "success");
     });
 
     sidebarPic.addEventListener("click", () => {
@@ -145,6 +169,7 @@ document.addEventListener("DOMContentLoaded", () => {
     function goToProfile() {
         if (!isProfileComplete()) {
             generalErrorMsg.textContent = "Please complete your profile before viewing it.";
+            showNotification("Please complete your profile before viewing it.", "error");
             return;
         }
         generalErrorMsg.textContent = "";
