@@ -1,21 +1,41 @@
-// user.js
-
 document.addEventListener("DOMContentLoaded", () => {
     const form = document.getElementById("editProfileForm");
 
-    // عناصر الهيدر والسايد بار
     const headerPic = document.querySelector(".header-user-pic img");
     const sidebarPic = document.querySelector(".profile-pic img");
     const sidebarName = document.querySelector(".profile-pic h3");
     const sidebarTitle = document.querySelector(".profile-pic p");
 
-    // جلب المستخدم الحالي
+    const headerProfileImg = document.getElementById("headerProfileImg");
+    const viewProfileBtn = document.getElementById("viewProfileBtn"); // زر View Profile لو موجود
+
     let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
     let currentUserName = localStorage.getItem("currentUser");
-
     let currentUser = users.find(user => user.username === currentUserName) || {};
 
-    // تعبئة الحقول
+    // عنصر لعرض رسالة الخطأ العامة (يمكن تضعه تحت الفورم في HTML)
+    let generalErrorMsg = document.getElementById("generalErrorMsg");
+    if (!generalErrorMsg) {
+        generalErrorMsg = document.createElement("div");
+        generalErrorMsg.id = "generalErrorMsg";
+        generalErrorMsg.style.color = "red";
+        generalErrorMsg.style.marginTop = "15px";
+        generalErrorMsg.style.fontSize = "0.9rem";
+        form.appendChild(generalErrorMsg);
+    }
+    generalErrorMsg.textContent = ""; // نظف الرسالة في البداية
+
+    // عنصر الإشعار العام (notification)
+    let notification = document.getElementById("notification");
+    if (!notification) {
+        notification = document.createElement("div");
+        notification.id = "notification";
+        notification.className = "notification"; // تأكد من وجود هذه الكلاس في CSS
+        // وضع عنصر الإشعار قبل الفورم
+        form.parentElement.insertBefore(notification, form);
+    }
+    notification.style.display = "none";
+
     function fillProfileFields() {
         document.getElementById("fullName").value = currentUser.fullName || currentUser.username || "";
         document.getElementById("title").value = currentUser.title || "";
@@ -39,7 +59,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     fillProfileFields();
 
-    // دالة لعرض الخطأ
     function showError(input, message) {
         let errorElem = input.parentElement.querySelector(".error-message");
         if (!errorElem) {
@@ -57,7 +76,28 @@ document.addEventListener("DOMContentLoaded", () => {
         if (errorElem) errorElem.textContent = "";
     }
 
-    // عند حفظ التعديلات
+    function isProfileComplete() {
+        const requiredFields = ["fullName", "title", "age"];
+        for (let id of requiredFields) {
+            const val = document.getElementById(id).value.trim();
+            if (!val) return false;
+        }
+        return true;
+    }
+
+    // دالة إظهار الإشعار مع النوع (نجاح أو خطأ) مع اختفاء تلقائي بعد 3 ثواني
+    function showNotification(message, type = "success") {
+        notification.textContent = message;
+        notification.className = "notification " + (type === "success" ? "success" : "error");
+        notification.style.display = "block";
+
+        setTimeout(() => {
+            notification.style.display = "none";
+            notification.textContent = "";
+            notification.className = "notification";
+        }, 3000);
+    }
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -76,7 +116,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!isValid) return;
 
-        // تحديث بيانات المستخدم
         currentUser.fullName = document.getElementById("fullName").value.trim();
         currentUser.title = document.getElementById("title").value.trim();
         currentUser.age = document.getElementById("age").value.trim();
@@ -88,21 +127,19 @@ document.addEventListener("DOMContentLoaded", () => {
         currentUser.city = document.getElementById("city").value.trim();
         currentUser.address = document.getElementById("address").value.trim();
 
-        // تحديث بيانات الصورة في الهيدر والسايد بار
         sidebarName.textContent = currentUser.fullName;
         sidebarTitle.textContent = currentUser.title;
 
-        // تحديث البيانات في الـ localStorage
         let index = users.findIndex(user => user.username === currentUserName);
         if (index !== -1) {
             users[index] = currentUser;
             localStorage.setItem("registeredUsers", JSON.stringify(users));
         }
 
-        alert("Profile updated successfully!");
+        generalErrorMsg.textContent = ""; // نظف رسالة الخطأ العامة
+        showNotification("Profile updated successfully!", "success");
     });
 
-    // تغيير الصورة
     sidebarPic.addEventListener("click", () => {
         const fileInput = document.createElement("input");
         fileInput.type = "file";
@@ -118,7 +155,6 @@ document.addEventListener("DOMContentLoaded", () => {
                     headerPic.src = reader.result;
                     sidebarPic.src = reader.result;
 
-                    // تحديث في localStorage
                     let index = users.findIndex(user => user.username === currentUserName);
                     if (index !== -1) {
                         users[index] = currentUser;
@@ -129,4 +165,22 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+
+    function goToProfile() {
+        if (!isProfileComplete()) {
+            generalErrorMsg.textContent = "Please complete your profile before viewing it.";
+            showNotification("Please complete your profile before viewing it.", "error");
+            return;
+        }
+        generalErrorMsg.textContent = "";
+        window.location.href = "profile.html";
+    }
+
+    headerProfileImg.style.cursor = "pointer";
+    headerProfileImg.addEventListener("click", goToProfile);
+
+    if (viewProfileBtn) {
+        viewProfileBtn.style.cursor = "pointer";
+        viewProfileBtn.addEventListener("click", goToProfile);
+    }
 });

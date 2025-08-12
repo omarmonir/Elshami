@@ -1,13 +1,21 @@
 :root {
   --primary: #003366;
   --secondary: #4a7fbf;
+  --success-bg: #d4edda;
+  --success-border: #c3e6cb;
+  --success-text: #155724;
+  --error-bg: #f8d7da;
+  --error-border: #f5c6cb;
+  --error-text: #721c24;
 }
-*{
-    margin: 0;
-  padding: 0;
-}
-body {
 
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
   background-color: #ffffff;
   font-family: 'Roboto', sans-serif;
   display: flex;
@@ -53,7 +61,6 @@ header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* margin-left: -100px; */
 }
 
 .profile-pic {
@@ -180,57 +187,27 @@ button {
 button:hover {
   background: var(--primary);
 }
-/* 
-.footer {
-  background-color: var(--primary);
-  color: white;
-  font-size: 0.95rem;
-  margin-top: auto;
+
+/* زرار العرض (View Profile) الجديد */
+#viewProfileBtn {
+  margin-top: 15px;
+  padding: 12px 20px;
+  background: #28a745; /* أخضر */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 600;
+  transition: background 0.3s;
 }
 
+#viewProfileBtn:hover {
+  background: #218838; /* أخضر أغمق عند المرور */
+}
+
+/* Footer */
 .footer h3 {
-  font-size: 1.1rem;
-  font-weight: bold;
-}
-
-.footer a {
-  color: var(--secondary);
-  text-decoration: none;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
-.footer p {
-  margin: 3px 0;
-}
-
-.top-footer .row {
-  display: flex;
-  justify-content: space-between;
-}
-
-.bottom-footer {
-  background-color: var(--secondary);
-}
-
-html, body {
-  height: 100%;
-}
-
-main {
-  flex: 1;
-} */
-
-
-
-
-
-
-
-
-.footer h3{
   font-weight: bold;
 }
 
@@ -243,23 +220,50 @@ main {
   text-decoration: none;
   font-weight: bold;
   color: #4a7fbf;
-
-
 }
 
-.bt{
+.bt {
   margin-left: 400px;
 }
+
 .branch-title {
-  text-align: center; /* يخلي النص في النص */
-  margin-bottom: 10px; /* مسافة بسيطة بين العنوان والفوتر */
+  text-align: center;
+  margin-bottom: 10px;
 }
 
 .branch-title h3 {
-  font-size: 2.5rem; /* حجم كبير للنص */
-  color: #2c3e50; /* لون نص غامق */
+  font-size: 2.5rem;
+  color: #2c3e50;
   font-weight: bold;
   font-family: 'Arial', sans-serif;
   letter-spacing: 1.5px;
   margin: 0;
+}
+
+/* التنسيق الخاص بمنطقة الإشعارات (notification) */
+.notification {
+  display: none; /* تختفي تلقائياً */
+  padding: 15px 20px;
+  margin-bottom: 25px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 1rem;
+  border: 1.5px solid transparent;
+  transition: opacity 0.3s ease;
+}
+
+/* حالة النجاح */
+.notification.success {
+  display: block;
+  background-color: var(--success-bg);
+  border-color: var(--success-border);
+  color: var(--success-text);
+}
+
+/* حالة الخطأ */
+.notification.error {
+  display: block;
+  background-color: var(--error-bg);
+  border-color: var(--error-border);
+  color: var(--error-text);
 }

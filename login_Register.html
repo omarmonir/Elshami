@@ -1,14 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Login/Register Form</title>
-  <link rel="stylesheet" href="./css/login_Register.css">
-  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-<link rel="stylesheet" href="('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap')">
+  <link rel="stylesheet" href="./css/login_Register.css" />
+  <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet' />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" />
 </head>
 <body>
+
+  <!-- ✅ Notification Container -->
+  <div id="notification-container"></div>
 
   <div class="container">
     <!-- ✅ Login Form -->
@@ -16,16 +19,16 @@
       <form id="loginForm">
         <h1>Login</h1>
         <div class="input-box">
-          <input type="text" id="loginUsername" placeholder="Username" required>
-          <i class='bx bxs-user'></i>
-          <span class="error-message" id="loginUsernameError"></span>
+          <!-- تم تعديل هذا الحقل ليكون البريد الإلكتروني -->
+          <input type="email" id="loginEmail" placeholder="Email" required />
+          <i class='bx bxs-envelope'></i>
+          <span class="error-message" id="loginEmailError"></span>
         </div>
         <div class="input-box">
-          <input type="password" id="loginPassword" placeholder="Password" required>
+          <input type="password" id="loginPassword" placeholder="Password" required />
           <i class='bx bxs-lock-alt'></i>
           <span class="error-message" id="loginPasswordError"></span>
         </div>
-        
         <button type="submit" class="btn">Login</button>
         <!-- <button type="submit" class="btn"><a href="index.html">Login</a></button> -->
         
@@ -38,31 +41,31 @@
         <h1>Registration</h1>
 
         <div class="input-box">
-          <input type="text" id="registerUsername" placeholder="Username" required>
+          <input type="text" id="registerUsername" placeholder="Username" required />
           <i class='bx bxs-user'></i>
           <span class="error-message" id="registerUsernameError"></span>
         </div>
 
         <div class="input-box">
-          <input type="email" id="registerEmail" placeholder="Email" required>
+          <input type="email" id="registerEmail" placeholder="Email" required />
           <i class='bx bxs-envelope'></i>
           <span class="error-message" id="registerEmailError"></span>
         </div>
 
         <div class="input-box">
-          <input type="password" id="registerPassword" placeholder="Password" required>
+          <input type="password" id="registerPassword" placeholder="Password" required />
           <i class='bx bxs-lock-alt'></i>
           <span class="error-message" id="registerPasswordError"></span>
         </div>
 
         <div class="input-box">
-          <input type="password" id="registerConfirmPassword" placeholder="Confirm Password" required>
+          <input type="password" id="registerConfirmPassword" placeholder="Confirm Password" required />
           <i class='bx bxs-lock-alt'></i>
           <span class="error-message" id="registerConfirmPasswordError"></span>
         </div>
 
         <div class="input-box">
-          <input type="tel" id="registerPhone" placeholder="Phone Number" required>
+          <input type="tel" id="registerPhone" placeholder="Phone Number" required />
           <i class='bx bxs-phone'></i>
           <span class="error-message" id="registerPhoneError"></span>
         </div>
@@ -71,15 +74,13 @@
         <div class="input-box gender-box">
           <label>Gender:</label>
           <div class="gender-options">
-            <label><input type="radio" name="gender" value="male" required> Male</label>
-            <label><input type="radio" name="gender" value="female" required> Female</label>
+            <label><input type="radio" name="gender" value="male" required /> Male</label>
+            <label><input type="radio" name="gender" value="female" required /> Female</label>
           </div>
           <span class="error-message" id="registerGenderError"></span>
         </div>
 
-        <!-- ✅ Hidden Role -->
-        <input type="hidden" name="role" value="user">
-
+        <input type="hidden" name="role" value="user" />
         <button type="submit" class="btn">Register</button>
       </form>
     </div>
