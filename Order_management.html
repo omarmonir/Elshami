@@ -13,30 +13,39 @@
 <div class="container-fluid">
     <div class="row">
         <!-- Sidebar -->
-        <div class="sidebar">
-            <div class="sidebar-header text-center">
-                <h4>Restaurant Management System</h4>
-                <div class="user-info mt-3 d-flex flex-column align-items-center">
-                    <img src="./Images/Michael Chen.webp" alt="User" class="user-img mb-2" style="width: 80px; height: 80px; border-radius: 50%;">
-                    <h6 class="user-name mb-1" id="userName">Omar Elseofy</h6>
-                    <p class="user-role" id="userRole">Admin</p>
-                </div>
+      <div class="sidebar">
+                <div class="sidebar-header text-center">
+                    <h4>Resturant Management System</h4>
+                    <div class="user-info mt-3 d-flex flex-column align-items-center">
+                        <img src="./Images/Michael Chen.webp" alt="صورة المستخدم" class="user-img mb-2" style="width: 80px; height: 80px; border-radius: 50%;">
+                        <h6 class="user-name mb-1" id="userName">Omar Elseofy</h6>
+                        <p class="user-role" id="userRole">Admin</p>
+                    </div>
+                 </div>
+
+                <nav>
+                  
+                    <a href="admin.html" class="menu-item active">
+                        <i class="fas fa-user-graduate"></i>
+                        User Mangement
+                    </a>
+                    <a href="products-management.html" class="menu-item">
+                        <i class="fas fa-book"></i>
+                        Products Mangement
+                    </a>
+                    <a href="Order_management.html" class="menu-item">
+                        <i class="fas fa-user-plus"></i>
+                        Order Mangement
+                    </a>
+                 <button class="btn btn-danger w-100 mt-3" onclick="window.location.href='login_Register.html'">
+                      <i class="fas fa-sign-out-alt me-2"></i> Log out
+                  </button>
+
+
+                </nav>
             </div>
-            <nav>
-                <a href="admin.html" class="menu-item">
-                    <i class="fas fa-user-graduate"></i>
-                    User Management
-                </a>
-                <a href="products-management.html" class="menu-item">
-                    <i class="fas fa-book"></i>
-                    Products Management
-                </a>
-                <a href="order-management.html" class="menu-item active">
-                    <i class="fas fa-user-plus"></i>
-                    Order Management
-                </a>
-            </nav>
-        </div>
+
+
     </div>
 </div>
 

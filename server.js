@@ -7,19 +7,30 @@ const app = express();
 // Initialize Stripe with your test key
 const stripe = new Stripe("sk_test_51RHtQg2LJ7rsHnnhWpQDJIv6mGFMZdPRLcsgncqIzBXmbhajeZ8Bf6eo3gBKyRHEhrsstPG0LDZkqBANxjr8CWQj00uqZua9E1");
 
+const allowedOrigins = [
+    "http://localhost:5500",
+    "http://127.0.0.1:5500",
+    "http://localhost:5501",
+    "http://127.0.0.1:5501",
+    "http://localhost:3000",
+    "http://127.0.0.1:5503",
+    "http://localhost:5503"
+];
+
 // Middleware
 app.use(cors({
-    origin: [
-        "http://localhost:5500", 
-        "http://127.0.0.1:5500", 
-        "http://localhost:5501", 
-        "http://127.0.0.1:5501",
-        "http://localhost:3000"
-    ],
+    origin: function(origin, callback){
+        if(!origin) return callback(null, true);
+        if(allowedOrigins.includes(origin)){
+            return callback(null, true);
+        } else {
+            return callback(new Error('Not allowed by CORS'));
+        }
+    },
     credentials: true,
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    allowedHeaders: ['Content-Type', 'Authorization']
+    methods: ['GET','POST','PUT','DELETE','OPTIONS'],
 }));
+
 
 app.use(express.json({ limit: '10mb' }));
 
@@ -67,18 +78,17 @@ app.post("/create-checkout-session", async (req, res) => {
         console.log('Creating Stripe session with line items:', lineItems);
 
         // Create Stripe checkout session
-        const session = await stripe.checkout.sessions.create({
-            payment_method_types: ["card"],
-            mode: "payment",
-            line_items: lineItems,
-            success_url: "http://127.0.0.1:5501/index.html?payment=success",
-            cancel_url: "http://127.0.0.1:5501/checkout.html?payment=cancelled",
-            billing_address_collection: 'required',
-            metadata: {
-                order_id: `order_${Date.now()}`,
-            }
-        });
-
+       const session = await stripe.checkout.sessions.create({
+    payment_method_types: ["card"],
+    mode: "payment",
+    line_items: lineItems,
+    success_url: "http://127.0.0.1:5503/index.html",
+    cancel_url: "http://127.0.0.1:5500/cart.html",
+    billing_address_collection: 'required',
+    metadata: {
+        order_id: `order_${Date.now()}`,
+    }
+});
         console.log('Stripe session created successfully:', session.id);
         res.json({ 
             url: session.url,

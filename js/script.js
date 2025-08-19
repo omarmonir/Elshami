@@ -63,3 +63,88 @@ function renderDots() {
 
 // تشغيل عند الفتح
 renderSlider();
+window.addEventListener('DOMContentLoaded', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const paymentStatus = urlParams.get('payment');
+    
+    if (paymentStatus === 'success') {
+        // استرجاع الطلب المؤقت اللي اتحفظ قبل التحويل لسترايب
+        const pendingOrder = JSON.parse(localStorage.getItem("pendingOrder"));
+        if (pendingOrder) {
+            const orders = JSON.parse(localStorage.getItem("orders")) || [];
+            orders.push(pendingOrder);
+            localStorage.setItem("orders", JSON.stringify(orders));
+            localStorage.removeItem("pendingOrder");
+        }
+
+        localStorage.removeItem('cart');
+        showPaymentSuccessNotification();
+        window.history.replaceState({}, document.title, window.location.pathname);
+
+    } else if (paymentStatus === 'cancelled') {
+        showPaymentCancelledNotification();
+        window.history.replaceState({}, document.title, window.location.pathname);
+    }
+});
+
+function showPaymentSuccessNotification() {
+    const notification = document.createElement('div');
+    notification.className = 'alert alert-success alert-dismissible fade show position-fixed';
+    notification.style.cssText = `
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 350px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    `;
+    
+    notification.innerHTML = `
+        <div class="d-flex align-items-center">
+            <i class="fas fa-check-circle text-success me-3" style="font-size: 1.5rem;"></i>
+            <div>
+                <strong>Payment Successful! 🎉</strong><br>
+                <small>Thank you for your order. Your payment has been processed successfully.</small>
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 7000);
+}
+
+function showPaymentCancelledNotification() {
+    const notification = document.createElement('div');
+    notification.className = 'alert alert-warning alert-dismissible fade show position-fixed';
+    notification.style.cssText = `
+        top: 20px;
+        right: 20px;
+        z-index: 9999;
+        min-width: 350px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    `;
+    
+    notification.innerHTML = `
+        <div class="d-flex align-items-center">
+            <i class="fas fa-exclamation-circle text-warning me-3" style="font-size: 1.5rem;"></i>
+            <div>
+                <strong>Payment Cancelled</strong><br>
+                <small>Your order is still in the cart. You can complete it anytime.</small>
+            </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    `;
+    
+    document.body.appendChild(notification);
+    
+    setTimeout(() => {
+        if (notification.parentNode) {
+            notification.remove();
+        }
+    }, 5000);
+}

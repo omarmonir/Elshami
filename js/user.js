@@ -1,19 +1,57 @@
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("editProfileForm");
+    // توحيد مفاتيح التخزين
+    const STORAGE_KEY = "users";
+    const CURRENT_USER_KEY = "currentUser";
+    const DEFAULT_PROFILE_IMAGE = "../Images/userpro.png";
 
+    const form = document.getElementById("editProfileForm");
     const headerPic = document.querySelector(".header-user-pic img");
     const sidebarPic = document.querySelector(".profile-pic img");
     const sidebarName = document.querySelector(".profile-pic h3");
     const sidebarTitle = document.querySelector(".profile-pic p");
-
     const headerProfileImg = document.getElementById("headerProfileImg");
-    const viewProfileBtn = document.getElementById("viewProfileBtn"); // زر View Profile لو موجود
+    const viewProfileBtn = document.getElementById("viewProfileBtn");
 
-    let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-    let currentUserName = localStorage.getItem("currentUser");
-    let currentUser = users.find(user => user.username === currentUserName) || {};
+    // تحميل البيانات مع التحقق من الصحة
+    let users = [];
+    try {
+        users = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch (error) {
+        console.error("Error loading users data:", error);
+        users = [];
+    }
 
-    // عنصر لعرض رسالة الخطأ العامة (يمكن تضعه تحت الفورم في HTML)
+    const currentUserName = localStorage.getItem(CURRENT_USER_KEY);
+    
+    if (!currentUserName) {
+        console.error("No user logged in - redirecting to login");
+        window.location.href = "login.html";
+        return;
+    }
+
+    let currentUser = users.find(user => user.username === currentUserName);
+    
+    if (!currentUser) {
+        console.error("User not found in database");
+        currentUser = {
+            username: currentUserName,
+            fullName: "",
+            title: "",
+            age: "",
+            about: "",
+            phone: "",
+            email: "",
+            country: "",
+            postcode: "",
+            city: "",
+            address: "",
+            image: DEFAULT_PROFILE_IMAGE // استخدام الصورة الافتراضية
+        };
+        users.push(currentUser);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+    }
+
+    // إنشاء عناصر الرسائل إذا لم تكن موجودة
     let generalErrorMsg = document.getElementById("generalErrorMsg");
     if (!generalErrorMsg) {
         generalErrorMsg = document.createElement("div");
@@ -23,38 +61,64 @@ document.addEventListener("DOMContentLoaded", () => {
         generalErrorMsg.style.fontSize = "0.9rem";
         form.appendChild(generalErrorMsg);
     }
-    generalErrorMsg.textContent = ""; // نظف الرسالة في البداية
+    generalErrorMsg.textContent = "";
 
-    // عنصر الإشعار العام (notification)
     let notification = document.getElementById("notification");
     if (!notification) {
         notification = document.createElement("div");
         notification.id = "notification";
-        notification.className = "notification"; // تأكد من وجود هذه الكلاس في CSS
-        // وضع عنصر الإشعار قبل الفورم
+        notification.className = "notification";
         form.parentElement.insertBefore(notification, form);
     }
     notification.style.display = "none";
 
-    function fillProfileFields() {
-        document.getElementById("fullName").value = currentUser.fullName || currentUser.username || "";
-        document.getElementById("title").value = currentUser.title || "";
-        document.getElementById("age").value = currentUser.age || "";
-        document.getElementById("about").value = currentUser.about || "";
-        document.getElementById("phone").value = currentUser.phone || "";
-        document.getElementById("email").value = currentUser.email || "";
-        document.getElementById("country").value = currentUser.country || "";
-        document.getElementById("postcode").value = currentUser.postcode || "";
-        document.getElementById("city").value = currentUser.city || "";
-        document.getElementById("address").value = currentUser.address || "";
+    // دالة لتحديث الصور في الواجهة
+    function updateProfileImages(imageUrl) {
+        if (headerPic) headerPic.src = imageUrl;
+        if (sidebarPic) sidebarPic.src = imageUrl;
+    }
 
-        if (currentUser.image) {
-            headerPic.src = currentUser.image;
-            sidebarPic.src = currentUser.image;
+    // دالة لحفظ بيانات المستخدم
+    function saveUserData() {
+        const userIndex = users.findIndex(user => user.username === currentUserName);
+        if (userIndex !== -1) {
+            users[userIndex] = currentUser;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
         }
+    }
 
-        sidebarName.textContent = currentUser.fullName || currentUser.username || "User Name";
-        sidebarTitle.textContent = currentUser.title || "User Title";
+    // دالة لملء البيانات
+    function fillProfileFields() {
+        const fields = [
+            {id: "fullName", value: currentUser.fullName || currentUser.username || ""},
+            {id: "title", value: currentUser.title || ""},
+            {id: "age", value: currentUser.age || ""},
+            {id: "about", value: currentUser.about || ""},
+            {id: "phone", value: currentUser.phone || ""},
+            {id: "email", value: currentUser.email || ""},
+            {id: "country", value: currentUser.country || ""},
+            {id: "postcode", value: currentUser.postcode || ""},
+            {id: "city", value: currentUser.city || ""},
+            {id: "address", value: currentUser.address || ""}
+        ];
+
+        fields.forEach(field => {
+            const element = document.getElementById(field.id);
+            if (element) element.value = field.value;
+        });
+
+        // استخدام الصورة الافتراضية إذا لم تكن هناك صورة
+        if (!currentUser.image) {
+            currentUser.image = DEFAULT_PROFILE_IMAGE;
+        }
+        updateProfileImages(currentUser.image);
+
+        if (sidebarName) {
+            sidebarName.textContent = currentUser.fullName || currentUser.username || "User Name";
+        }
+        if (sidebarTitle) {
+            sidebarTitle.textContent = currentUser.title || "User Title";
+        }
     }
 
     fillProfileFields();
@@ -85,7 +149,6 @@ document.addEventListener("DOMContentLoaded", () => {
         return true;
     }
 
-    // دالة إظهار الإشعار مع النوع (نجاح أو خطأ) مع اختفاء تلقائي بعد 3 ثواني
     function showNotification(message, type = "success") {
         notification.textContent = message;
         notification.className = "notification " + (type === "success" ? "success" : "error");
@@ -116,27 +179,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
         if (!isValid) return;
 
-        currentUser.fullName = document.getElementById("fullName").value.trim();
-        currentUser.title = document.getElementById("title").value.trim();
-        currentUser.age = document.getElementById("age").value.trim();
-        currentUser.about = document.getElementById("about").value.trim();
-        currentUser.phone = document.getElementById("phone").value.trim();
-        currentUser.email = document.getElementById("email").value.trim();
-        currentUser.country = document.getElementById("country").value.trim();
-        currentUser.postcode = document.getElementById("postcode").value.trim();
-        currentUser.city = document.getElementById("city").value.trim();
-        currentUser.address = document.getElementById("address").value.trim();
+        // تحديث بيانات المستخدم
+        const updatedFields = [
+            "fullName", "title", "age", "about", "phone", "email", 
+            "country", "postcode", "city", "address"
+        ];
 
-        sidebarName.textContent = currentUser.fullName;
-        sidebarTitle.textContent = currentUser.title;
+        updatedFields.forEach(field => {
+            currentUser[field] = document.getElementById(field).value.trim();
+        });
 
-        let index = users.findIndex(user => user.username === currentUserName);
-        if (index !== -1) {
-            users[index] = currentUser;
-            localStorage.setItem("registeredUsers", JSON.stringify(users));
+        // تأكد من وجود صورة (استخدم الافتراضية إذا لم تكن موجودة)
+        if (!currentUser.image) {
+            currentUser.image = DEFAULT_PROFILE_IMAGE;
+            updateProfileImages(DEFAULT_PROFILE_IMAGE);
         }
 
-        generalErrorMsg.textContent = ""; // نظف رسالة الخطأ العامة
+        // تحديث واجهة المستخدم
+        if (sidebarName) sidebarName.textContent = currentUser.fullName;
+        if (sidebarTitle) sidebarTitle.textContent = currentUser.title;
+
+        // حفظ البيانات المحدثة
+        saveUserData();
+
+        generalErrorMsg.textContent = "";
         showNotification("Profile updated successfully!", "success");
     });
 
@@ -152,16 +218,15 @@ document.addEventListener("DOMContentLoaded", () => {
                 const reader = new FileReader();
                 reader.onload = () => {
                     currentUser.image = reader.result;
-                    headerPic.src = reader.result;
-                    sidebarPic.src = reader.result;
-
-                    let index = users.findIndex(user => user.username === currentUserName);
-                    if (index !== -1) {
-                        users[index] = currentUser;
-                        localStorage.setItem("registeredUsers", JSON.stringify(users));
-                    }
+                    updateProfileImages(reader.result);
+                    saveUserData();
                 };
                 reader.readAsDataURL(file);
+            } else {
+                // إذا لم يتم اختيار صورة، استخدم الصورة الافتراضية
+                currentUser.image = DEFAULT_PROFILE_IMAGE;
+                updateProfileImages(DEFAULT_PROFILE_IMAGE);
+                saveUserData();
             }
         });
     });

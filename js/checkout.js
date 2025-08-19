@@ -41,7 +41,6 @@ document.getElementById('confirm-order').addEventListener('click', async () => {
 
     const paymentMethod = selectedPayment.id;
 
-  if (paymentMethod === "creditCard") {
     const shippingInfo = {
         firstName: form.elements['firstName'].value,
         lastName: form.elements['lastName'].value,
@@ -58,60 +57,39 @@ document.getElementById('confirm-order').addEventListener('click', async () => {
         items: [...cart],
         subtotal: subtotal,
         total: subtotal,
-        paymentMethod: 'Credit Card',
+        paymentMethod: paymentMethod === "creditCard" ? "Credit Card" : "Cash on Delivery",
         shippingInfo: shippingInfo,
-        status: 'Completed'
+        status: paymentMethod === "creditCard" ? "Completed" : "Pending"
     };
 
-    // حفظ مؤقت لغاية ما العملية تنجح
-    localStorage.setItem("pendingOrder", JSON.stringify(order));
+    // قراءة الطلبات القديمة أو إنشاء مصفوفة جديدة
+    const orders = Array.isArray(JSON.parse(localStorage.getItem('orders')))
+        ? JSON.parse(localStorage.getItem('orders'))
+        : [];
 
-    const response = await fetch("http://localhost:4242/create-checkout-session", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ cart })
-    });
+    // إضافة الطلب الجديد
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
 
-    const data = await response.json();
-    if (data.url) {
-        window.location.href = data.url;
-    } else {
-        throw new Error('No checkout URL received');
-    }
-}
+    if (paymentMethod === "creditCard") {
+        const response = await fetch("http://localhost:4242/create-checkout-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart })
+        });
 
+        const data = await response.json();
+        if (data.url) {
+            window.location.href = data.url;
+        } else {
+            throw new Error('No checkout URL received');
+        }
+    } 
     else if (paymentMethod === "paypal") {
         showNotification('info', 'PayPal Coming Soon', 'Please use Credit Card or Cash on Delivery for now.');
-    }
+    } 
     else if (paymentMethod === "cashOnDelivery") {
-        const shippingInfo = {
-            firstName: form.elements['firstName'].value,
-            lastName: form.elements['lastName'].value,
-            email: form.elements['email'].value,
-            address: form.elements['address'].value,
-            city: form.elements['city'].value,
-            zip: form.elements['zip'].value,
-            phone: form.elements['phone'].value
-        };
-
-        // Create order object
-        const order = {
-            id: Date.now().toString(),
-            date: new Date().toISOString(),
-            items: [...cart],
-            subtotal: subtotal,
-            total: subtotal,
-            paymentMethod: 'Cash on Delivery',
-            shippingInfo: shippingInfo,
-            status: 'Pending'
-        };
-
-        // Save to orders
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        orders.push(order);
-        localStorage.setItem('orders', JSON.stringify(orders));
-
-        // Clear cart
+        // مسح الكارت بعد الطلب
         localStorage.removeItem('cart');
 
         showNotification('success', 'Order Placed', `Order ID: ${order.id}. You will pay cash upon delivery.`);
@@ -121,6 +99,7 @@ document.getElementById('confirm-order').addEventListener('click', async () => {
         }, 3000);
     }
 });
+
 
 
 if (cart.length === 0) {

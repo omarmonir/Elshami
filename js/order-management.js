@@ -25,7 +25,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 <td>${order.shippingInfo.firstName} ${order.shippingInfo.lastName}</td>
                 <td>${order.items.length} items</td>
                 <td>$${order.total.toFixed(2)}</td>
-                <td><span class="badge bg-warning">${order.status}</span></td>
+                <td>
+            <span class="badge 
+                ${order.status === 'Completed' ? 'bg-success' : 'bg-warning'}">
+                ${order.status}
+            </span>
+            </td>
+
                 <td>${new Date(order.date).toLocaleString()}</td>
                 <td>
                     <button class="btn btn-sm btn-info me-1" onclick="viewOrderDetails('${order.id}')">View</button>

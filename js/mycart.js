@@ -1,23 +1,8 @@
-// Initialize cart from localStorage or with sample data
-let cart = JSON.parse(localStorage.getItem('cart')) || [
-    { 
-        id: 1, 
-        name: "Belgium waffles with strawberries", 
-        price: 150, 
-        quantity: 1, 
-        image: "./Images/waffles.jpg.png"  
-    },
-    { 
-        id: 2, 
-        name: "Chicken skewers", 
-        price: 150, 
-        quantity: 2, 
-        image: "./Images/Chicken Dum Biryani - Coolinarco_com.jpeg" 
-    }
-];
-
+// جلب الكارت من localStorage أو مصفوفة فاضية
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 let couponValue = 0;
 
+// عرض محتويات الكارت
 function renderCart() {
     const tbody = document.getElementById("cart-items");
     tbody.innerHTML = "";
@@ -40,25 +25,25 @@ function renderCart() {
     cart.forEach((item, index) => {
         const total = item.price * item.quantity;
         subtotal += total;
-        
+
         const row = document.createElement("tr");
         row.innerHTML = `
             <td>
                 <img src="${item.image}" alt="${item.name}" style="width: 60px; height: 60px; object-fit: cover; border-radius: 5px;" 
-                     onerror="this.src='./Images/placeholder.jpg'" />
+                 />
             </td>
             <td class="text-start">${item.name}</td>
             <td>$${item.price.toFixed(2)}</td>
             <td>
-                <div class="d-flex align-items-center justify-content-center gap-1 flex-nowrap" style="min-width: 120px;">
-                    <button class="btn btn-sm btn-outline-danger" onclick="updateQuantity(${index}, -1)" title="Decrease quantity">-</button>
+                <div class="d-flex align-items-center justify-content-center gap-1">
+                    <button class="btn btn-sm btn-outline-danger" onclick="updateQuantity(${index}, -1)">-</button>
                     <span class="mx-2 fw-bold">${item.quantity}</span>
-                    <button class="btn btn-sm btn-outline-success" onclick="updateQuantity(${index}, 1)" title="Increase quantity">+</button>
+                    <button class="btn btn-sm btn-outline-success" onclick="updateQuantity(${index}, 1)">+</button>
                 </div>
             </td>
             <td class="fw-bold">$${total.toFixed(2)}</td>
             <td>
-                <button class="btn btn-sm btn-danger" onclick="removeItem(${index})" title="Remove item">
+                <button class="btn btn-sm btn-danger" onclick="removeItem(${index})">
                     <i class="fas fa-trash"></i> Remove
                 </button>
             </td>
@@ -72,6 +57,7 @@ function renderCart() {
     localStorage.setItem('cart', JSON.stringify(cart));
 }
 
+// تعديل الكمية
 function updateQuantity(index, change) {
     if (cart[index]) {
         cart[index].quantity += change;
@@ -82,77 +68,66 @@ function updateQuantity(index, change) {
     }
 }
 
+// حذف عنصر
 function removeItem(index) {
-   cart.splice(index, 1);
-renderCart();
-showNotification('success', 'Item Removed', 'The item has been removed from your cart.');
-}
+    cart.splice(index, 1);
 
-// Add item to cart function (for other pages)
-function addToCart(item) {
-    const existingItem = cart.find(cartItem => cartItem.id === item.id);
-    
-    if (existingItem) {
-        existingItem.quantity += 1;
+    if (cart.length === 0) {
+        localStorage.removeItem('cart'); // مسح الكارت من اللوكال ستوريج
     } else {
-        cart.push({...item, quantity: 1});
+        localStorage.setItem('cart', JSON.stringify(cart)); // تحديث الكارت في اللوكال ستوريج
     }
-    
+
     renderCart();
+    showNotification('success', 'Item Removed', 'The item has been removed from your cart.');
 }
 
-// Initialize cart display
+
+// دالة لإضافة منتج جديد وتصفير الكارت
+function addToCartSingle(product) {
+    // نبدأ بكارت جديد
+    cart = [{ ...product, quantity: 1 }];
+
+    // حفظ في localStorage
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    // تحديث العرض
+    renderCart();
+
+    // إشعار
+    showNotification('success', 'Added to Cart', `${product.name} is now the only item in your cart.`);
+}
+
+// إشعار
+function showNotification(type, title, message, duration = 3000) {
+    const colors = {
+        success: "alert-success",
+        warning: "alert-warning",
+        error: "alert-danger",
+        info: "alert-info"
+    };
+
+    const notification = document.createElement("div");
+    notification.className = `alert ${colors[type]} position-fixed top-0 end-0 m-3`;
+    notification.style.zIndex = "9999";
+    notification.innerHTML = `<strong>${title}</strong><br>${message}`;
+
+    document.body.appendChild(notification);
+    setTimeout(() => notification.remove(), duration);
+}
+
+// بدء العرض
 renderCart();
 
-// Checkout button functionality
+// زر الشيك آوت
 const checkoutButton = document.querySelector('.btn-checkout');
 if (checkoutButton) {
     checkoutButton.addEventListener('click', () => {
         if (cart.length === 0) {
-           showNotification('warning', 'Cart is Empty', 'Please add items before checkout.');
+            showNotification('warning', 'Cart is Empty', 'Please add items before checkout.');
             return;
         }
-        
-        // Save cart to localStorage before redirecting
         localStorage.setItem('cart', JSON.stringify(cart));
         window.location.href = 'checkout.html';
     });
-}
-
-function showNotification(type, title, message, duration = 5000) {
-    const icons = {
-        success: { icon: "fas fa-check-circle text-success", color: "alert-success" },
-        warning: { icon: "fas fa-exclamation-circle text-warning", color: "alert-warning" },
-        error: { icon: "fas fa-times-circle text-danger", color: "alert-danger" },
-        info: { icon: "fas fa-info-circle text-primary", color: "alert-info" }
-    };
-
-    const notification = document.createElement('div');
-    notification.className = `alert ${icons[type]?.color || 'alert-info'} alert-dismissible fade show position-fixed`;
-    notification.style.cssText = `
-        top: 20px;
-        right: 20px;
-        z-index: 9999;
-        min-width: 350px;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
-    `;
-
-    notification.innerHTML = `
-        <div class="d-flex align-items-center">
-            <i class="${icons[type]?.icon || icons.info.icon} me-3" style="font-size: 1.5rem;"></i>
-            <div>
-                <strong>${title}</strong><br>
-                <small>${message}</small>
-            </div>
-        </div>
-        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
-    `;
-
-    document.body.appendChild(notification);
-
-    setTimeout(() => {
-        if (notification.parentNode) {
-            notification.remove();
-        }
-    }, duration);
 }

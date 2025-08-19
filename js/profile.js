@@ -1,61 +1,120 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const STORAGE_KEY = "registeredUsers";
+  // توحيد مفاتيح التخزين
+  const STORAGE_KEY = "users";
   const CURRENT_USER_KEY = "currentUser";
 
-  // تحميل بيانات المستخدمين والمستخدم الحالي
-  let users = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
-  const currentUserName = localStorage.getItem(CURRENT_USER_KEY);
-  let currentUser = users.find(u => u.username === currentUserName);
-
-  if (!currentUser) {
-    console.warn("No current user found in localStorage.");
-    currentUser = {};
+  // تحميل البيانات مع التحقق من الصحة
+  let users = [];
+  try {
+    users = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+  } catch (error) {
+    console.error("Error loading users data:", error);
+    users = [];
   }
 
-  // دوال مساعدة للحصول على العناصر
-  const getEl = (selector) => document.querySelector(selector);
+  const currentUserName = localStorage.getItem(CURRENT_USER_KEY);
+  
+  if (!currentUserName) {
+    console.error("No logged-in user found");
+    window.location.href = "login.html"; // إعادة توجيه إذا لم يكن هناك مستخدم مسجل دخول
+    return;
+  }
 
+  // البحث عن المستخدم الحالي مع التحقق من وجود الخصائص
+  let currentUser = users.find(u => u.username === currentUserName) || {};
+  
+  // دالة مساعدة محسنة للحصول على العناصر
+  const getEl = (selector, isRequired = false) => {
+    const el = document.querySelector(selector);
+    if (!el && isRequired) {
+      console.error(`Element not found: ${selector}`);
+    }
+    return el;
+  };
+
+  // الحصول على العناصر مع التحقق من وجودها
   const headerPic = getEl(".header-user-pic img") || getEl("#headerProfileImg");
   const sidebarPic = getEl(".profile-pic img") || getEl("#sidebarProfileImg");
-  const sidebarName = getEl(".profile-pic h3") || getEl("#sidebarName");
+  const sidebarName = getEl(".profile-pic h3", true) || getEl("#sidebarName", true);
   const sidebarTitle = getEl(".profile-pic p") || getEl("#sidebarTitle");
 
-  // دالة لملء الحقول أو العناصر بالبيانات مع توحيد الـ IDs مع الـ HTML
+  // دالة محسنة لملء البيانات مع التحقق
   function fillProfileFields() {
-    const setText = (id, val) => {
-      const el = document.getElementById(id);
-      if (el) {
-        if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-          el.value = val || "---";
-          el.disabled = true; // منع التعديل
+    if (!currentUser) {
+      console.error("No user data available");
+      return;
+    }
+
+    // قائمة بجميع حقول البروفايل
+    const profileFields = [
+      { id: "displayFullName", value: currentUser.fullName || currentUser.username },
+      { id: "displayTitle", value: currentUser.title },
+      { id: "displayAge", value: currentUser.age },
+      { id: "displayAbout", value: currentUser.about },
+      { id: "displayPhone", value: currentUser.phone },
+      { id: "displayEmail", value: currentUser.email },
+      { id: "displayCountry", value: currentUser.country },
+      { id: "displayPostcode", value: currentUser.postcode },
+      { id: "displayCity", value: currentUser.city },
+      { id: "displayAddress", value: currentUser.address }
+    ];
+
+    // تعبئة جميع الحقول
+    profileFields.forEach(field => {
+      const element = document.getElementById(field.id);
+      if (element) {
+        if (element.tagName === "INPUT" || element.tagName === "TEXTAREA") {
+          element.value = field.value || "---";
+          element.disabled = true;
         } else {
-          el.textContent = val || "---";
+          element.textContent = field.value || "---";
         }
+      } else {
+        console.warn(`Element with ID ${field.id} not found`);
       }
-    };
+    });
 
-    // توحيد الـ IDs حسب الـ HTML (لاحظ الـ "display" في البداية)
-    setText("displayFullName", currentUser.fullName || currentUser.username || "---");
-    setText("displayTitle", currentUser.title || "---");
-    setText("displayAge", currentUser.age || "---");
-    setText("displayAbout", currentUser.about || "---");
-    setText("displayPhone", currentUser.phone || "---");
-    setText("displayEmail", currentUser.email || "---");
-    setText("displayCountry", currentUser.country || "---");
-    setText("displayPostcode", currentUser.postcode || "---");
-    setText("displayCity", currentUser.city || "---");
-    setText("displayAddress", currentUser.address || "---");
-
-    // تحديث الصور والاسم واللقب الجانبي والرأسي
+    // تحديث الصور
     if (currentUser.image) {
       if (headerPic) headerPic.src = currentUser.image;
       if (sidebarPic) sidebarPic.src = currentUser.image;
+    } else {
+      // صورة افتراضية إذا لم توجد صورة
+      const defaultImage = "../Images/userpro.png";
+      if (headerPic) headerPic.src = defaultImage;
+      if (sidebarPic) sidebarPic.src = defaultImage;
     }
 
-    if (sidebarName) sidebarName.textContent = currentUser.fullName || currentUser.username || "User Name";
-    if (sidebarTitle) sidebarTitle.textContent = currentUser.title || "User Title";
+    // تحديث الاسم واللقب
+    if (sidebarName) {
+      sidebarName.textContent = currentUser.fullName || currentUser.username || "User Name";
+    }
+    
+    if (sidebarTitle) {
+      sidebarTitle.textContent = currentUser.title || "User Title";
+    }
   }
 
   // تعبئة البيانات عند تحميل الصفحة
   fillProfileFields();
+
+  // إضافة وظيفة للتحقق من اكتمال البروفايل
+  function isProfileComplete() {
+    if (!currentUser) return false;
+    
+    const requiredFields = ['fullName', 'title', 'email'];
+    return requiredFields.every(field => currentUser[field]);
+  }
+
+  // إضافة حدث للزر إذا كان موجوداً
+  const viewProfileBtn = getEl("#viewProfileBtn");
+  if (viewProfileBtn) {
+    viewProfileBtn.addEventListener("click", () => {
+      if (!isProfileComplete()) {
+        alert("Please complete your profile first");
+        return;
+      }
+      window.location.href = "profile.html";
+    });
+  }
 });
