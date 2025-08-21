@@ -1,3 +1,4 @@
+
 const cart = JSON.parse(localStorage.getItem('cart')) || [];
 let subtotal = 0;
 
@@ -9,7 +10,7 @@ function renderCheckoutItems() {
     cart.forEach(item => {
         const total = item.price * item.quantity;
         subtotal += total;
-        
+
         const row = document.createElement('tr');
         row.innerHTML = `
             <td class="text-start">${item.name}</td>
@@ -40,66 +41,67 @@ document.getElementById('confirm-order').addEventListener('click', async () => {
 
     const paymentMethod = selectedPayment.id;
 
-    if (paymentMethod === "creditCard") {
-        try {
-            const response = await fetch("http://localhost:4242/create-checkout-session", {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ cart })
-            });
+    const shippingInfo = {
+        firstName: form.elements['firstName'].value,
+        lastName: form.elements['lastName'].value,
+        email: form.elements['email'].value,
+        address: form.elements['address'].value,
+        city: form.elements['city'].value,
+        zip: form.elements['zip'].value,
+        phone: form.elements['phone'].value
+    };
 
-            const data = await response.json();
-            
-            if (data.url) {
-                window.location.href = data.url;
-            } else {
-                throw new Error('No checkout URL received');
-            }
-        } catch (error) {
-            console.error('Payment error:', error);
-            showNotification('error', 'Payment Error', 'Payment service is not available. Please try another method.');
+    const order = {
+        id: Date.now().toString(),
+        date: new Date().toISOString(),
+        items: [...cart],
+        subtotal: subtotal,
+        total: subtotal,
+        paymentMethod: paymentMethod === "creditCard" ? "Credit Card" : "Cash on Delivery",
+        shippingInfo: shippingInfo,
+        status: paymentMethod === "creditCard" ? "Completed" : "Pending"
+    };
+
+    // قراءة الطلبات القديمة أو إنشاء مصفوفة جديدة
+    const orders = Array.isArray(JSON.parse(localStorage.getItem('orders')))
+        ? JSON.parse(localStorage.getItem('orders'))
+        : [];
+
+    // إضافة الطلب الجديد
+    orders.push(order);
+    localStorage.setItem('orders', JSON.stringify(orders));
+
+    if (paymentMethod === "creditCard") {
+        const response = await fetch("http://localhost:4242/create-checkout-session", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ cart })
+        });
+
+        const data = await response.json();
+        if (data.url) {
+            window.location.href = data.url;
+        } else {
+            throw new Error('No checkout URL received');
         }
     } 
     else if (paymentMethod === "paypal") {
         showNotification('info', 'PayPal Coming Soon', 'Please use Credit Card or Cash on Delivery for now.');
-    }
+    } 
     else if (paymentMethod === "cashOnDelivery") {
-        const shippingInfo = {
-            firstName: form.elements['firstName'].value,
-            lastName: form.elements['lastName'].value,
-            email: form.elements['email'].value,
-            address: form.elements['address'].value,
-            city: form.elements['city'].value,
-            zip: form.elements['zip'].value,
-            phone: form.elements['phone'].value
-        };
-
-        const order = {
-            id: Date.now().toString(),
-            date: new Date().toISOString(),
-            items: [...cart],
-            subtotal: subtotal,
-            total: subtotal,
-            paymentMethod: 'Cash on Delivery',
-            shippingInfo: shippingInfo,
-            status: 'Pending'
-        };
-
-        const orders = JSON.parse(localStorage.getItem('orders')) || [];
-        orders.push(order);
-        localStorage.setItem('orders', JSON.stringify(orders));
-
+        // مسح الكارت بعد الطلب
         localStorage.removeItem('cart');
 
         showNotification('success', 'Order Placed', `Order ID: ${order.id}. You will pay cash upon delivery.`);
-        
+
         setTimeout(() => {
             window.location.href = 'index.html';
         }, 3000);
     }
 });
 
-// Check if cart is empty
+
+
 if (cart.length === 0) {
     document.querySelector('.container').innerHTML = `
         <div class="text-center py-5">
@@ -109,6 +111,8 @@ if (cart.length === 0) {
         </div>
     `;
 }
+
+
 function showNotification(type, title, message, duration = 5000) {
     const icons = {
         success: { icon: "fas fa-check-circle text-success", color: "alert-success" },

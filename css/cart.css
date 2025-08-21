@@ -12,6 +12,10 @@ h2, h5 {
   color: var(--primary-color);
 }
 
+.check{
+  background-color: var(--primary-color);
+}
+
 table img {
   width: 60px;
   height: 60px;
@@ -91,4 +95,15 @@ background-color: var(--primary-color);
   .p-4 {
     padding: 1rem !important;
   }
+}
+.btn-read {
+  display: inline-block;
+  padding: 8px 15px;
+  background:#4a7fbf;
+  color: white;
+  border-radius: 5px;
+  text-decoration: none;
+  font-size: 14px;
+  margin-top: 10px;
+  transition: background 0.3s ease;
 }

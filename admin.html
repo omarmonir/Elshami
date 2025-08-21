@@ -13,7 +13,7 @@
     <div class="container-fluid">
         <div class="row">
             <!-- Sidebar -->
-            <div class="sidebar">
+ <div class="sidebar">
                 <div class="sidebar-header text-center">
                     <h4>Resturant Management System</h4>
                     <div class="user-info mt-3 d-flex flex-column align-items-center">
@@ -25,20 +25,26 @@
 
                 <nav>
                   
-                    <a href="#" class="menu-item active">
+                    <a href="admin.html" class="menu-item active">
                         <i class="fas fa-user-graduate"></i>
                         User Mangement
                     </a>
-                    <a href="#" class="menu-item">
+                    <a href="products-management.html" class="menu-item">
                         <i class="fas fa-book"></i>
                         Products Mangement
                     </a>
-                    <a href="#" class="menu-item">
+                    <a href="Order_management.html" class="menu-item">
                         <i class="fas fa-user-plus"></i>
                         Order Mangement
                     </a>
+                 <button class="btn btn-danger w-100 mt-3" onclick="window.location.href='login_Register.html'">
+                      <i class="fas fa-sign-out-alt me-2"></i> Log out
+                  </button>
+
+
                 </nav>
             </div>
+
 
            
         </div>
@@ -61,7 +67,7 @@
                 <th>Email</th>
                 <th>Role</th>
                 <th>Status</th>
-                <th>Actions</th>
+                <th class="actions-cell">Actions</th>
             </tr>
         </thead>
         <tbody id="userTableBody">
