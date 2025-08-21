@@ -66,9 +66,11 @@ function loadUsers(filter = "") {
             <td>${user.email}</td>
             <td>${user.role || ''}</td>
             <td>${user.status || ''}</td>
-            <td>
-                <button class="btn btn-warning btn-sm" onclick="editUser(${user.id})">Edit</button>
-                <button class="btn btn-danger btn-sm" onclick="confirmDelete(${user.id})">Delete</button>
+            <td class="actions-cell">
+                 <div class="action-buttons">
+                    <button class="btn btn-warning btn-sm" onclick="editUser(${user.id})">Edit</button>
+                    <button class="btn btn-danger btn-sm" onclick="confirmDelete(${user.id})">Delete</button>
+                 </div>
             </td>
         `;
         tbody.appendChild(row);
@@ -86,6 +88,8 @@ document.getElementById("userForm").addEventListener("submit", function (e) {
     const confirmPassword = document.getElementById("userConfirmPasswordInput").value;
     const role = document.getElementById("userRoleInput").value.trim();
     const status = document.getElementById("userStatusInput").value.trim();
+    const phone = document.getElementById("userPhoneInput").value.trim();
+    const gender = document.querySelector('input[name="userGender"]:checked')?.value || "";
 
     if (password !== confirmPassword) {
         showNotification('error', 'Password Error', 'Passwords do not match!');
@@ -97,12 +101,20 @@ document.getElementById("userForm").addEventListener("submit", function (e) {
     if (id) {
         const index = users.findIndex(u => u.id == id);
         if (index !== -1) {
-            users[index] = { id: parseInt(id), username, email, password, role, status };
+            users[index] = { 
+                id: parseInt(id), 
+                username, 
+                email, 
+                password, 
+                role, 
+                status,
+                phone,
+                gender
+            };
             showNotification('success', 'User Updated', 'User details have been updated successfully.');
         }
     } else {
-        // تأكد ان اسم المستخدم مش موجود مسبقاً
-        if(users.find(u => u.username === username)) {
+        if (users.find(u => u.username === username)) {
             showNotification('error', 'Duplicate Username', 'Username already exists!');
             return;
         }
@@ -112,7 +124,9 @@ document.getElementById("userForm").addEventListener("submit", function (e) {
             email,
             password,
             role,
-            status
+            status,
+            phone,
+            gender
         };
         users.push(newUser);
         showNotification('success', 'User Added', 'New user has been added successfully.');
@@ -135,16 +149,44 @@ document.getElementById("addUserBtn").addEventListener("click", () => {
 function editUser(id) {
     users = JSON.parse(localStorage.getItem("users")) || [];
     const user = users.find(u => u.id == id);
-    if(!user) return;
+    if (!user) return;
     document.getElementById("userId").value = user.id;
     document.getElementById("userNameInput").value = user.username;
     document.getElementById("userEmailInput").value = user.email;
     document.getElementById("userPasswordInput").value = user.password;
     document.getElementById("userConfirmPasswordInput").value = user.password;
-    document.getElementById("userRoleInput").value = user.role || '';
-    document.getElementById("userStatusInput").value = user.status || '';
+
+    // تعيين role مع مراعاة حالة الحروف (تحويل النص للـ lowercase للمقارنة)
+    const roleSelect = document.getElementById("userRoleInput");
+    if(roleSelect) {
+        if(user.role?.toLowerCase() === "admin") roleSelect.value = "Admin";
+        else roleSelect.value = "User";
+    }
+
+    // تعيين status مع مراعاة حالة الحروف
+    const statusSelect = document.getElementById("userStatusInput");
+    if(statusSelect) {
+        if(user.status?.toLowerCase() === "active") statusSelect.value = "Active";
+        else statusSelect.value = "Inactive";
+    }
+
+    // تعيين phone
+    document.getElementById("userPhoneInput").value = user.phone || '';
+
+    // تعيين gender في راديو بوتون مع مراعاة حالة الحروف
+    if(user.gender) {
+        const genderRadios = document.querySelectorAll('input[name="gender"]');
+        genderRadios.forEach(radio => {
+            radio.checked = radio.value.toLowerCase() === user.gender.toLowerCase();
+        });
+    } else {
+        const genderRadios = document.querySelectorAll('input[name="gender"]');
+        genderRadios.forEach(radio => radio.checked = false);
+    }
+
     new bootstrap.Modal(document.getElementById("userModal")).show();
 }
+
 
 // تأكيد الحذف
 function confirmDelete(id) {
@@ -152,7 +194,7 @@ function confirmDelete(id) {
     new bootstrap.Modal(document.getElementById("deleteConfirmModal")).show();
 }
 
-// تنفيذ الحذف بعد التأكيد
+// تنفيذ الحذف
 document.getElementById("confirmDeleteBtn").addEventListener("click", () => {
     users = JSON.parse(localStorage.getItem("users")) || [];
     users = users.filter(u => u.id != deleteUserId);
@@ -167,5 +209,5 @@ document.getElementById("searchUser").addEventListener("input", function () {
     loadUsers(this.value);
 });
 
-// تحميل البيانات أول ما الصفحة تفتح
+// تحميل البيانات عند فتح الصفحة
 document.addEventListener("DOMContentLoaded", () => loadUsers());

@@ -1,45 +1,128 @@
-// user.js
-
 document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("editProfileForm");
+    // توحيد مفاتيح التخزين
+    const STORAGE_KEY = "users";
+    const CURRENT_USER_KEY = "currentUser";
+    const DEFAULT_PROFILE_IMAGE = "../Images/userpro.png";
 
-    // عناصر الهيدر والسايد بار
+    const form = document.getElementById("editProfileForm");
     const headerPic = document.querySelector(".header-user-pic img");
     const sidebarPic = document.querySelector(".profile-pic img");
     const sidebarName = document.querySelector(".profile-pic h3");
     const sidebarTitle = document.querySelector(".profile-pic p");
+    const headerProfileImg = document.getElementById("headerProfileImg");
+    const viewProfileBtn = document.getElementById("viewProfileBtn");
 
-    // جلب المستخدم الحالي
-    let users = JSON.parse(localStorage.getItem("registeredUsers")) || [];
-    let currentUserName = localStorage.getItem("currentUser");
+    // تحميل البيانات مع التحقق من الصحة
+    let users = [];
+    try {
+        users = JSON.parse(localStorage.getItem(STORAGE_KEY)) || [];
+    } catch (error) {
+        console.error("Error loading users data:", error);
+        users = [];
+    }
 
-    let currentUser = users.find(user => user.username === currentUserName) || {};
+    const currentUserName = localStorage.getItem(CURRENT_USER_KEY);
+    
+    if (!currentUserName) {
+        console.error("No user logged in - redirecting to login");
+        window.location.href = "login.html";
+        return;
+    }
 
-    // تعبئة الحقول
-    function fillProfileFields() {
-        document.getElementById("fullName").value = currentUser.fullName || currentUser.username || "";
-        document.getElementById("title").value = currentUser.title || "";
-        document.getElementById("age").value = currentUser.age || "";
-        document.getElementById("about").value = currentUser.about || "";
-        document.getElementById("phone").value = currentUser.phone || "";
-        document.getElementById("email").value = currentUser.email || "";
-        document.getElementById("country").value = currentUser.country || "";
-        document.getElementById("postcode").value = currentUser.postcode || "";
-        document.getElementById("city").value = currentUser.city || "";
-        document.getElementById("address").value = currentUser.address || "";
+    let currentUser = users.find(user => user.username === currentUserName);
+    
+    if (!currentUser) {
+        console.error("User not found in database");
+        currentUser = {
+            username: currentUserName,
+            fullName: "",
+            title: "",
+            age: "",
+            about: "",
+            phone: "",
+            email: "",
+            country: "",
+            postcode: "",
+            city: "",
+            address: "",
+            image: DEFAULT_PROFILE_IMAGE // استخدام الصورة الافتراضية
+        };
+        users.push(currentUser);
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+    }
 
-        if (currentUser.image) {
-            headerPic.src = currentUser.image;
-            sidebarPic.src = currentUser.image;
+    // إنشاء عناصر الرسائل إذا لم تكن موجودة
+    let generalErrorMsg = document.getElementById("generalErrorMsg");
+    if (!generalErrorMsg) {
+        generalErrorMsg = document.createElement("div");
+        generalErrorMsg.id = "generalErrorMsg";
+        generalErrorMsg.style.color = "red";
+        generalErrorMsg.style.marginTop = "15px";
+        generalErrorMsg.style.fontSize = "0.9rem";
+        form.appendChild(generalErrorMsg);
+    }
+    generalErrorMsg.textContent = "";
+
+    let notification = document.getElementById("notification");
+    if (!notification) {
+        notification = document.createElement("div");
+        notification.id = "notification";
+        notification.className = "notification";
+        form.parentElement.insertBefore(notification, form);
+    }
+    notification.style.display = "none";
+
+    // دالة لتحديث الصور في الواجهة
+    function updateProfileImages(imageUrl) {
+        if (headerPic) headerPic.src = imageUrl;
+        if (sidebarPic) sidebarPic.src = imageUrl;
+    }
+
+    // دالة لحفظ بيانات المستخدم
+    function saveUserData() {
+        const userIndex = users.findIndex(user => user.username === currentUserName);
+        if (userIndex !== -1) {
+            users[userIndex] = currentUser;
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
         }
+    }
 
-        sidebarName.textContent = currentUser.fullName || currentUser.username || "User Name";
-        sidebarTitle.textContent = currentUser.title || "User Title";
+    // دالة لملء البيانات
+    function fillProfileFields() {
+        const fields = [
+            {id: "fullName", value: currentUser.fullName || currentUser.username || ""},
+            {id: "title", value: currentUser.title || ""},
+            {id: "age", value: currentUser.age || ""},
+            {id: "about", value: currentUser.about || ""},
+            {id: "phone", value: currentUser.phone || ""},
+            {id: "email", value: currentUser.email || ""},
+            {id: "country", value: currentUser.country || ""},
+            {id: "postcode", value: currentUser.postcode || ""},
+            {id: "city", value: currentUser.city || ""},
+            {id: "address", value: currentUser.address || ""}
+        ];
+
+        fields.forEach(field => {
+            const element = document.getElementById(field.id);
+            if (element) element.value = field.value;
+        });
+
+        // استخدام الصورة الافتراضية إذا لم تكن هناك صورة
+        if (!currentUser.image) {
+            currentUser.image = DEFAULT_PROFILE_IMAGE;
+        }
+        updateProfileImages(currentUser.image);
+
+        if (sidebarName) {
+            sidebarName.textContent = currentUser.fullName || currentUser.username || "User Name";
+        }
+        if (sidebarTitle) {
+            sidebarTitle.textContent = currentUser.title || "User Title";
+        }
     }
 
     fillProfileFields();
 
-    // دالة لعرض الخطأ
     function showError(input, message) {
         let errorElem = input.parentElement.querySelector(".error-message");
         if (!errorElem) {
@@ -57,7 +140,27 @@ document.addEventListener("DOMContentLoaded", () => {
         if (errorElem) errorElem.textContent = "";
     }
 
-    // عند حفظ التعديلات
+    function isProfileComplete() {
+        const requiredFields = ["fullName", "title", "age"];
+        for (let id of requiredFields) {
+            const val = document.getElementById(id).value.trim();
+            if (!val) return false;
+        }
+        return true;
+    }
+
+    function showNotification(message, type = "success") {
+        notification.textContent = message;
+        notification.className = "notification " + (type === "success" ? "success" : "error");
+        notification.style.display = "block";
+
+        setTimeout(() => {
+            notification.style.display = "none";
+            notification.textContent = "";
+            notification.className = "notification";
+        }, 3000);
+    }
+
     form.addEventListener("submit", (e) => {
         e.preventDefault();
 
@@ -77,32 +180,32 @@ document.addEventListener("DOMContentLoaded", () => {
         if (!isValid) return;
 
         // تحديث بيانات المستخدم
-        currentUser.fullName = document.getElementById("fullName").value.trim();
-        currentUser.title = document.getElementById("title").value.trim();
-        currentUser.age = document.getElementById("age").value.trim();
-        currentUser.about = document.getElementById("about").value.trim();
-        currentUser.phone = document.getElementById("phone").value.trim();
-        currentUser.email = document.getElementById("email").value.trim();
-        currentUser.country = document.getElementById("country").value.trim();
-        currentUser.postcode = document.getElementById("postcode").value.trim();
-        currentUser.city = document.getElementById("city").value.trim();
-        currentUser.address = document.getElementById("address").value.trim();
+        const updatedFields = [
+            "fullName", "title", "age", "about", "phone", "email", 
+            "country", "postcode", "city", "address"
+        ];
 
-        // تحديث بيانات الصورة في الهيدر والسايد بار
-        sidebarName.textContent = currentUser.fullName;
-        sidebarTitle.textContent = currentUser.title;
+        updatedFields.forEach(field => {
+            currentUser[field] = document.getElementById(field).value.trim();
+        });
 
-        // تحديث البيانات في الـ localStorage
-        let index = users.findIndex(user => user.username === currentUserName);
-        if (index !== -1) {
-            users[index] = currentUser;
-            localStorage.setItem("registeredUsers", JSON.stringify(users));
+        // تأكد من وجود صورة (استخدم الافتراضية إذا لم تكن موجودة)
+        if (!currentUser.image) {
+            currentUser.image = DEFAULT_PROFILE_IMAGE;
+            updateProfileImages(DEFAULT_PROFILE_IMAGE);
         }
 
-        alert("Profile updated successfully!");
+        // تحديث واجهة المستخدم
+        if (sidebarName) sidebarName.textContent = currentUser.fullName;
+        if (sidebarTitle) sidebarTitle.textContent = currentUser.title;
+
+        // حفظ البيانات المحدثة
+        saveUserData();
+
+        generalErrorMsg.textContent = "";
+        showNotification("Profile updated successfully!", "success");
     });
 
-    // تغيير الصورة
     sidebarPic.addEventListener("click", () => {
         const fileInput = document.createElement("input");
         fileInput.type = "file";
@@ -115,18 +218,34 @@ document.addEventListener("DOMContentLoaded", () => {
                 const reader = new FileReader();
                 reader.onload = () => {
                     currentUser.image = reader.result;
-                    headerPic.src = reader.result;
-                    sidebarPic.src = reader.result;
-
-                    // تحديث في localStorage
-                    let index = users.findIndex(user => user.username === currentUserName);
-                    if (index !== -1) {
-                        users[index] = currentUser;
-                        localStorage.setItem("registeredUsers", JSON.stringify(users));
-                    }
+                    updateProfileImages(reader.result);
+                    saveUserData();
                 };
                 reader.readAsDataURL(file);
+            } else {
+                // إذا لم يتم اختيار صورة، استخدم الصورة الافتراضية
+                currentUser.image = DEFAULT_PROFILE_IMAGE;
+                updateProfileImages(DEFAULT_PROFILE_IMAGE);
+                saveUserData();
             }
         });
     });
+
+    function goToProfile() {
+        if (!isProfileComplete()) {
+            generalErrorMsg.textContent = "Please complete your profile before viewing it.";
+            showNotification("Please complete your profile before viewing it.", "error");
+            return;
+        }
+        generalErrorMsg.textContent = "";
+        window.location.href = "profile.html";
+    }
+
+    headerProfileImg.style.cursor = "pointer";
+    headerProfileImg.addEventListener("click", goToProfile);
+
+    if (viewProfileBtn) {
+        viewProfileBtn.style.cursor = "pointer";
+        viewProfileBtn.addEventListener("click", goToProfile);
+    }
 });

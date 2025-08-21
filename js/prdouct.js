@@ -1,39 +1,31 @@
-let products = [
-    {
-        id: 1,
-        name: "Mutton or Lamb Biriyani",
-        toppings: "Topped with chicken, onion, capsicum, black olive & green chilli",
-        price: 30,
-        image: "../Images/Chicken Dum Biryani - Coolinarco_com.jpeg"
-    },
-    {
-        id: 2,
-        name: "Chicken Supreme Pizza",
-        toppings: "Cheese, tomato, onion, olives, green pepper",
-        price: 50,
-        image: "../Images/Delicious Pizza.jpeg"
-    },
-    {
-        id: 3,
-        name: "Veggie Burger",
-        toppings: "Lettuce, tomato, onion, cheese",
-        price: 25,
-        image: "../Images/Classic Grilled Cheeseburger • Olive & Mango.jpeg"
-    }
-];
+// جلب المنتجات من localStorage
+let products = JSON.parse(localStorage.getItem('products')) || [];
 
-let cart = [];
+// الكارت
+let cart = JSON.parse(localStorage.getItem('cart')) || [];
 
-function displayProducts(items) {
+// إعدادات الباجينيشن
+let currentPage = 1;
+let itemsPerPage = 6;
+
+// عرض المنتجات بصفحات
+function displayProducts(items, page = 1) {
     let container = document.getElementById("menu-container");
     container.innerHTML = "";
 
     if (items.length === 0) {
-        container.innerHTML = `<p class="text-center text-danger">No items found matching your search.</p>`;
+        container.innerHTML = `<p class="text-center text-danger">No products found.</p>`;
+        document.getElementById("pagination").innerHTML = "";
         return;
     }
 
-    items.forEach(product => {
+    // حساب بداية ونهاية الصفحة
+    let startIndex = (page - 1) * itemsPerPage;
+    let endIndex = startIndex + itemsPerPage;
+    let paginatedItems = items.slice(startIndex, endIndex);
+
+    // عرض المنتجات
+    paginatedItems.forEach(product => {
         let card = `
             <div class="col-md-4 mb-4">
                 <div class="card h-100">
@@ -42,15 +34,36 @@ function displayProducts(items) {
                         <h5 class="card-title">${product.name}</h5>
                         <p class="card-text">${product.toppings}</p>
                         <p class="price">$${product.price}</p>
-                        <button class="btn btn-success" onclick="addToCart(${product.id})">Add to Cart</button>
+                        <button class="btn btn-primary" onclick="addToCart(${product.id})">Add to Cart</button>
                     </div>
                 </div>
             </div>
         `;
         container.innerHTML += card;
     });
+
+    // عرض أزرار الباجينيشن
+    displayPagination(items.length, page);
 }
 
+// عرض أزرار الباجينيشن
+function displayPagination(totalItems, currentPage) {
+    let totalPages = Math.ceil(totalItems / itemsPerPage);
+    let paginationContainer = document.getElementById("pagination");
+    paginationContainer.innerHTML = "";
+
+    for (let i = 1; i <= totalPages; i++) {
+        let btn = document.createElement("button");
+        btn.className = `btn btn-sm ${i === currentPage ? "btn-primary" : "btn-outline-primary"} m-1`;
+        btn.textContent = i;
+        btn.addEventListener("click", () => {
+            displayProducts(products, i);
+        });
+        paginationContainer.appendChild(btn);
+    }
+}
+
+// البحث
 function searchProducts() {
     let searchValue = document.getElementById("searchInput").value.toLowerCase();
     let minPrice = parseFloat(document.getElementById("minPrice").value) || 0;
@@ -61,34 +74,53 @@ function searchProducts() {
         p.price >= minPrice && p.price <= maxPrice
     );
 
-    displayProducts(filtered);
+    displayProducts(filtered, 1);
 }
 
+products = products.map((p, index) => ({
+    id: index + 1,
+    ...p
+}));
+localStorage.setItem('products', JSON.stringify(products));
+
+// إضافة للكارت
 function addToCart(id) {
     let product = products.find(p => p.id === id);
     if (product) {
-        cart.push(product);
-        showNotification(`${product.name} added to cart!`);
+        const existingItem = cart.find(item => item.id === product.id);
+        if (existingItem) {
+            existingItem.quantity += 1;
+        } else {
+            cart.push({ ...product, quantity: 1 });
+        }
+
+        localStorage.setItem('cart', JSON.stringify(cart));
+        showNotification('success', 'Added to Cart', `${product.name} has been added to your cart.`);
     }
 }
 
-function showNotification(message) {
-    let notification = document.createElement("div");
-    notification.className = "alert alert-success position-fixed top-0 end-0 m-3";
+// إشعار
+function showNotification(type, title, message, duration = 2000) {
+    const colors = {
+        success: "alert-success",
+        warning: "alert-warning",
+        error: "alert-danger",
+        info: "alert-info"
+    };
+
+    const notification = document.createElement("div");
+    notification.className = `alert ${colors[type]} position-fixed top-0 end-0 m-3`;
     notification.style.zIndex = "9999";
-    notification.innerText = message;
+    notification.innerHTML = `<strong>${title}</strong><br>${message}`;
 
     document.body.appendChild(notification);
-
-    setTimeout(() => {
-        notification.remove();
-    }, 2000);
+    setTimeout(() => notification.remove(), duration);
 }
 
-// Live search
+// الأحداث
 document.getElementById("searchInput").addEventListener("input", searchProducts);
 document.getElementById("minPrice").addEventListener("input", searchProducts);
 document.getElementById("maxPrice").addEventListener("input", searchProducts);
 
-// عرض أولي لكل المنتجات
-displayProducts(products);
+// عرض أولي
+displayProducts(products, currentPage);
