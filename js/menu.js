@@ -1,5 +1,93 @@
+// Menu items array
+const menuItems = [
+    {
+        id: 1,
+        name: "Mutton or lamb biriyani",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 30,
+        image: "./Images/image_itemsList_7.jpg"
+    },
+    {
+        id: 2,
+        name: "Chicken Supreme Pizza",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 40,
+        image: "./Images/image_itemsList_1.jpg"
+    },
+    {
+        id: 3,
+        name: "Hamburger Burger with Beef",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 50,
+        image: "./Images/image_itemsList_2.jpg"
+    },
+    {
+        id: 4,
+        name: "Belgium waffles with strawberries",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 70,
+        image: "./Images/image_itemsList_3.jpg"
+    },
+    {
+        id: 5,
+        name: "Chicken skewers",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 90,
+        image: "./Images/image_itemsList_4.jpg"
+    },
+    {
+        id: 6,
+        name: "Spicy fried tubtim fish salad",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 90,
+        image: "./Images/image_itemsList_6.jpg"
+    },
+    {
+        id: 7,
+        name: "Fresh cola drink with green lime",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 40,
+        image: "./Images/image_itemsList_8.jpg"
+    },
+    {
+        id: 8,
+        name: "Ice cream cone",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 30,
+        image: "./Images/image_itemsList_9.jpg"
+    },
+    {
+        id: 9,
+        name: "Chocolate ice cream",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 70,
+        image: "./Images/image_itemsList_10.jpg"
+    },
+    {
+        id: 10,
+        name: "Healthy breakfast",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 55,
+        image: "./Images/image_itemsList_11.jpg"
+    },
+    {
+        id: 11,
+        name: "Breakfast with coffee and fresh croissants",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 88,
+        image: "./Images/image_itemsList_12.jpg"
+    },
+    {
+        id: 12,
+        name: "Ried eggs, sausages, zucchini",
+        description: "Topped with chicken, onion, capsicum, black olive & Green chilli",
+        price: 77,
+        image: "./Images/image_itemsList_14.jpg"
+    }
+];
+
 let currentProduct = null;
-let products = JSON.parse(localStorage.getItem('products')) || [];
+let products = menuItems; // Use menuItems as products for cart functionality
 
 document.addEventListener("DOMContentLoaded", () => {
     // Get product from localStorage or URL parameter
